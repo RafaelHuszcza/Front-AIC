@@ -4,6 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { Macroprocessos } from "./components/Macroprocessos/Macroprocessos";
 import { None } from "./components/None/None";
 
 import { LayoutPage } from "./pages/LayoutPage/LayoutPage";
@@ -18,7 +19,9 @@ export function AppRoutes() {
         />
         <Route
           path="/macro-processos"
-          element={<LayoutPage Component={None} title={"Macroprocessos"} />}
+          element={
+            <LayoutPage Component={Macroprocessos} title={"Macroprocessos"} />
+          }
         />
         <Route
           path="/processos"
