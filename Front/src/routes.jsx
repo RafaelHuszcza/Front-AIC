@@ -4,15 +4,40 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { None } from "./components/None/None";
 
-import { None } from "./pages/None/None";
+import { LayoutPage } from "./pages/LayoutPage/LayoutPage";
 
 export function AppRoutes() {
   return (
     <Router>
       <Routes>
-        <Route path="/home" element={<None title={"None"} />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
+        <Route
+          path="/"
+          element={<LayoutPage Component={None} title={"Home"} />}
+        />
+        <Route
+          path="/macro-processos"
+          element={<LayoutPage Component={None} title={"Macroprocessos"} />}
+        />
+        <Route
+          path="/processos"
+          element={<LayoutPage Component={None} title={"Processos"} />}
+        />
+        <Route
+          path="/atividades"
+          element={<LayoutPage Component={None} title={"Atividades"} />}
+        />
+        <Route
+          path="/eventos"
+          element={<LayoutPage Component={None} title={"Eventos"} />}
+        />
+        <Route
+          path="*"
+          element={
+            <LayoutPage Component={None} title={"Página Não Encontrada"} />
+          }
+        />
       </Routes>
     </Router>
   );
