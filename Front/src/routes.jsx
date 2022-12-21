@@ -4,8 +4,11 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { Atividades } from "./components/Atividades/Atividades";
+import { Eventos } from "./components/Eventos/Eventos";
 import { Macroprocessos } from "./components/Macroprocessos/Macroprocessos";
 import { None } from "./components/None/None";
+import { Processos } from "./components/Processos/Processos";
 
 import { LayoutPage } from "./pages/LayoutPage/LayoutPage";
 
@@ -25,15 +28,15 @@ export function AppRoutes() {
         />
         <Route
           path="/processos"
-          element={<LayoutPage Component={None} title={"Processos"} />}
+          element={<LayoutPage Component={Processos} title={"Processos"} />}
         />
         <Route
           path="/atividades"
-          element={<LayoutPage Component={None} title={"Atividades"} />}
+          element={<LayoutPage Component={Atividades} title={"Atividades"} />}
         />
         <Route
           path="/eventos"
-          element={<LayoutPage Component={None} title={"Eventos"} />}
+          element={<LayoutPage Component={Eventos} title={"Eventos"} />}
         />
         <Route
           path="*"

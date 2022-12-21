@@ -1,6 +1,6 @@
-import styles from "./Macroprocessos.module.css";
+import styles from "./Eventos.module.css";
 
-export function Macroprocessos({ title }) {
+export function Eventos({ title }) {
   return (
     <main className={styles.mainMacroprocessos}>
       <div className={styles.textMacro}>
