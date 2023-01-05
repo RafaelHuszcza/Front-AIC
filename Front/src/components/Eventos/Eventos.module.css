@@ -1,13 +1,32 @@
-.mainMacroprocessos {
+.mainEventos {
   width: 100%;
   height: calc(100vh - 40px);
-  background-color: red;
+  margin: 0 2rem;
+  background-color: var(--white);
 }
-.textMacro {
+
+.textEventos {
   width: 100%;
   display: flex;
-  color: var(--white);
+  color: var(--black);
   font-size: 40px;
   justify-content: center;
   padding-top: 2rem;
+}
+
+.seletorContainer{
+  display: flex;
+  flex-direction: column;
+  padding-top: 2.5rem;
+  font-size: 16px;
+}
+
+.seletor {
+  width: 96px;
+  height: 24px;
+}
+
+.seletorTipo{
+  width: 163px;
+  height: 24px;
 }
