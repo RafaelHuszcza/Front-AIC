@@ -2,15 +2,22 @@ import styles from "./Eventos.module.css";
 import React, { useState } from "react";
 
 export function Eventos({ title }) {
-  const getInitialState = () => {
-    const value = "Null";
-    return value;
+  const getFontInitialState = () => {
+    const fontValue = "Null";
+    return fontValue;
   };
 
-  const [value, setValue] = useState(getInitialState);
+  const getTipoInitialState = () => {
+    const valueTipo = "Null";
+    return valueTipo;
+  };
+
+  const [fontValue, setFontValue] = useState(getFontInitialState);
+  const [valueTipo, setTipoValue] = useState(getTipoInitialState);
 
   const handleChange = (e) => {
-    setValue(e.target.value);
+    setFontValue(e.target.fontValue);
+    setTipoValue(e.target.valueTipos);
   };
   return (
     <main className={styles.mainEventos}>
@@ -19,7 +26,7 @@ export function Eventos({ title }) {
       </div>
       <div className={styles.seletorContainer}>
         <p>{`Selecione a `}<b>{`FONTE`}</b></p>
-        <select value={value} onChange={handleChange} className={styles.seletor}>
+        <select value={fontValue} onChange={handleChange} className={styles.seletor}>
           <option value="Pessoas">Pessoas</option>
           <option value="Processos">Processos</option>
           <option value="Sistemas">Sistemas</option>
@@ -32,7 +39,7 @@ export function Eventos({ title }) {
 
         <div className={styles.seletorContainer}>
         <p>{`Selecione o `}<b>{`TIPO`}</b></p>
-        <select value={value} onChange={handleChange} className={styles.seletorTipo}>
+        <select value={valueTipo} onChange={handleChange} className={styles.seletorTipo}>
           <option value="Estrategico">1-Risco Estrategico</option>
           <option value="Operacional">2-Risco Operacional</option>
           <option value="Conformidades">3-Risco de Conformidades</option>
