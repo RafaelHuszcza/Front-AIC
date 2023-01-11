@@ -42,7 +42,7 @@
 .popup {
   position: absolute;
   width: 819px;
-  height: 557px;
+  min-height: 557px;
   background-color: var(--white);
 }
 
@@ -141,6 +141,30 @@ select:invalid {
   border: none;
 }
 
+.closeButton {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 4rem 0;
+}
+
+.abortButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:  rgba(0, 0, 0, 0.1);
+  height: 44px;
+  width: 172px;
+  border-radius: 3px;
+}
+
+#closeButton {
+  color: var(--black);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  border: none;
+}
+
 .defaultInput {
   width: 342.42px;
   height: 44px;
@@ -153,4 +177,25 @@ select:invalid {
   font-size: 16px;
   line-height: 16px;
   padding-left: 0.813rem;
+}
+
+.addCausaConsequencia {
+  margin-top: 10px;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.15px;
+  color: #666666;
+}
+
+.addMore {
+  align-items: flex-start;
+  margin-right: 8px;
+  width: 13px;
+  height: 13px;
+}
+
+.seletorHeaderTipo {
+  margin-bottom: .5rem;
+  margin-top: 3.781rem;
 }
