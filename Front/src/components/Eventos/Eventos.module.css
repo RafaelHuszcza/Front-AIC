@@ -7,10 +7,56 @@
 .textEventos {
   width: 100%;
   display: flex;
-  color: var(--black);
-  font-size: 40px;
+  color: #BF0A25;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.15px;
+  border-bottom: 1.65px solid #CCCCCC;
+  padding-top: 1rem;
+  padding-left: 3.625rem;
+}
+
+.openEvents {
+  width: Hug (143px);
+  height: Hug (30px);
+  padding: 7px 19px;
+  margin-left: 1.25rem;
+  margin-top: 1.72rem;
+  background: #EFEFEF;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px;
+}
+
+.backgroundPopup {
+  background: rgba(51, 51, 51, 0.5);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  padding-top: 2rem;
+}
+
+.popup {
+  position: absolute;
+  width: 819px;
+  height: 557px;
+  background-color: var(--white);
+}
+
+.popupHeader {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20.57px 0 0 40px;
+  border-bottom: 1.65px solid #CCCCCC;
+  color: #BF0A25;
+  letter-spacing: 0.15px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 .seletorContainer{
@@ -18,10 +64,64 @@
   flex-direction: column;
   padding-top: 2.5rem;
   margin: 0 2rem;
+  
   font-size: 16px;
+  color: #333333;
+  font-style: normal;
+  font-family: 'Lato';
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0.15px;
+}
+
+.seletorFirstHeader{
+  margin-bottom: .5rem;
+}
+
+.seletorHeader{
+  margin-bottom: .5rem;
+  margin-top: 1.25rem;
 }
 
 .seletor {
-  width: 258px;
-  height: 24px;
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  width: 342.42px;
+  height: 44px;
+  border-radius: 4px;
+}
+
+.seletorLabel {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  color: red;
+}
+
+.addButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #DE790F;
+  height: 44px;
+  width: 344px;
+  border-radius: 3px;
+}
+
+.applyButton {
+  display: flex;
+  justify-content: center;
+  margin: 4rem 0;
+}
+
+#applyButton {
+  color: white;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  border: none;
 }
