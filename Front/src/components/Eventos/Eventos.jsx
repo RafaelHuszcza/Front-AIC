@@ -29,16 +29,16 @@ export function Eventos({ title }) {
                 <p className={styles.seletorFirstHeader}>{`Evento`}</p>
                 <input className={styles.defaultInput} type="text" autoComplete="off" id="Evento" placeholder="Informe o nome do evento" />
                 <p className={styles.seletorHeader}>{`Atividade`}</p>
-                <select  value={fontValue} onChange={e=>setFontes(e.target.value)} className={styles.seletor}>
-                  <option className={styles.seletorLabel} disabled selected value="placeHolder">Selecione a atividade relacionada</option>
+                <select  value={fontValue} onChange={e=>setFontes(e.target.value)} className={styles.seletor} required>
+                  <option className={styles.seletorLabel} disabled selected value="">Selecione a atividade relacionada</option>
                 </select>
                 <p className={styles.seletorHeader}>{`Causas`}</p>
                 <input className={styles.defaultInput} type="text" autoComplete="off" id="Causa" placeholder="Informe a causa do evento" />
               </div>     
               <div className={styles.leftContainer}>
                 <p className={styles.seletorFirstHeader}>{`Fonte`}</p>
-                <select value={fontValue} onChange={e=>setFontes(e.target.value)} className={styles.seletor}>
-                  <option className={styles.seletorLabel} disabled selected value="placeHolder">Selecione a fonte relacionada</option>
+                <select value={fontValue} onChange={e=>setFontes(e.target.value)} className={styles.seletor} required>
+                  <option className={styles.seletorLabel} disabled selected value="">Selecione a fonte relacionada</option>
                   <option value="Pessoas">Pessoas</option>
                   <option value="Processos">Processos</option>
                   <option value="Sistemas">Sistemas</option>
@@ -49,8 +49,8 @@ export function Eventos({ title }) {
                 </select>
 
                 <p className={styles.seletorHeader}>{`Tipo`}</p>
-                <select value={tipoValue} onChange={e=>setTipos(e.target.value)} className={styles.seletor}>
-                  <option className={styles.seletorLabel} disabled selected value="placeHolder">Selecione o tipo relacionado</option>
+                <select value={tipoValue} onChange={e=>setTipos(e.target.value)} className={styles.seletor} required>
+                  <option value="" className={styles.seletorLabel} disabled selected>Selecione o tipo relacionado</option>
                   <option value="Estrategico">1-Risco Estrategico</option>
                   <option value="Operacional">2-Risco Operacional</option>
                   <option value="Conformidades">3-Risco de Conformidades</option>

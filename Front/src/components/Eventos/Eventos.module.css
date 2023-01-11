@@ -101,16 +101,19 @@
   font-size: 16px;
   line-height: 16px;
   font: 1em sans-serif;
+  color: var(--black);
+}
+
+select:invalid {
+  color: #666666;
 }
 
 .seletorLabel {
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 16px;
   display: flex;
   align-items: center;
-  color: #666666;
   display: none;
 }
 
