@@ -7,12 +7,12 @@
 .textEventos {
   width: 100%;
   display: flex;
-  color: #BF0A25;
+  color: var(--red-200);
   font-weight: 700;
   font-size: 18px;
   line-height: 22px;
   letter-spacing: 0.15px;
-  border-bottom: 1.65px solid #CCCCCC;
+  border-bottom: 1.65px solid var(--grey-200);
   padding-top: 1rem;
   padding-left: 3.625rem;
 }
@@ -23,13 +23,13 @@
   padding: 7px 19px;
   margin-left: 1.25rem;
   margin-top: 1.72rem;
-  background: #EFEFEF;
-  border: 1px solid #CCCCCC;
+  background: var(--white-200);
+  border: 1px solid var(--grey-200);
   border-radius: 5px;
 }
 
 .backgroundPopup {
-  background: rgba(51, 51, 51, 0.5);
+  background: var(--black-background);
   width: 100%;
   height: 100%;
   position: absolute;
@@ -50,8 +50,8 @@
   display: flex;
   justify-content: flex-start;
   padding: 20.57px 0 0 40px;
-  border-bottom: 1.65px solid #CCCCCC;
-  color: #BF0A25;
+  border-bottom: 1.65px solid var(--white-200);
+  color: var(--red-200);
   letter-spacing: 0.15px;
   font-style: normal;
   font-weight: 700;
@@ -66,32 +66,32 @@
   width: 100%;
 }
 
-.leftContainer{
+.leftContainer {
   display: flex;
   flex-direction: column;
   padding-top: 2.5rem;
   margin: 0 2rem;
   font-size: 16px;
-  color: #333333;
+  color: var(--black-200);
   font-style: normal;
-  font-family: 'Lato';
+  font-family: "Lato";
   font-weight: 400;
   line-height: 19px;
   letter-spacing: 0.15px;
 }
 
-.seletorFirstHeader{
-  margin-bottom: .5rem;
+.seletorFirstHeader {
+  margin-bottom: 0.5rem;
 }
 
-.seletorHeader{
-  margin-bottom: .5rem;
+.seletorHeader {
+  margin-bottom: 0.5rem;
   margin-top: 1.25rem;
 }
 
 .seletor {
-  background: #FFFFFF;
-  border: 1px solid #DDDDDD;
+  background: var(--white);
+  border: 1px solid var(--white-300);
   border-radius: 4px;
   width: 342.42px;
   height: 44px;
@@ -105,7 +105,7 @@
 }
 
 select:invalid {
-  color: #666666;
+  color: var(--brown-100);
 }
 
 .seletorLabel {
@@ -121,7 +121,7 @@ select:invalid {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #DE790F;
+  background: var(--orange-500);
   height: 44px;
   width: 344px;
   border-radius: 3px;
@@ -134,7 +134,7 @@ select:invalid {
 }
 
 #applyButton {
-  color: white;
+  color: var(--white);
   font-weight: 400;
   font-size: 18px;
   line-height: 21px;
@@ -144,8 +144,8 @@ select:invalid {
 .defaultInput {
   width: 342.42px;
   height: 44px;
-  background: #FFFFFF;
-  border: 1px solid #DDDDDD;
+  background: var(--white);
+  border: 1px solid var(--white-300);
   border-radius: 4px;
 
   font-style: normal;

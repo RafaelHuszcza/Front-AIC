@@ -20,7 +20,7 @@ export function NavBar() {
         <span
           className={styles.linkText}
           onClick={() => {
-            navigate("/macro-processos"), action();
+            navigate("/macro-processos");
           }}
         >
           Macroprocessos
@@ -29,7 +29,7 @@ export function NavBar() {
         <span
           className={styles.linkText}
           onClick={() => {
-            navigate("/processos"), action();
+            navigate("/processos");
           }}
         >
           Processos
@@ -38,7 +38,7 @@ export function NavBar() {
         <span
           className={styles.linkText}
           onClick={() => {
-            navigate("/atividades"), action();
+            navigate("/atividades");
           }}
         >
           Atividades
@@ -47,7 +47,7 @@ export function NavBar() {
         <span
           className={styles.linkText}
           onClick={() => {
-            navigate("/eventos"), action();
+            navigate("/eventos");
           }}
         >
           Eventos
