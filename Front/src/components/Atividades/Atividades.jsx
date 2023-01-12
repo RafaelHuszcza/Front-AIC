@@ -353,7 +353,7 @@ export function Atividades({ title }) {
             Adicionar Atividade
           </button>
         </div>
-        <div className={styles.listDataSources}>
+        <div className={styles.list}>
           {atvs == undefined || atvs.length == 0 ? (
             <div className={styles.loadingTable}></div>
           ) : (
@@ -408,7 +408,7 @@ export function Atividades({ title }) {
 
                   {emptyRows > 0 ? (
                     <tr style={{ height: `${12.5 * emptyRows}%` }}>
-                      <td colSpan={5} />
+                      <td colSpan={4} />
                     </tr>
                   ) : null}
                 </tbody>

@@ -279,7 +279,7 @@ export function Macroprocessos({ title }) {
             Adicionar Macroprocesso
           </button>
         </div>
-        <div className={styles.listDataSources}>
+        <div className={styles.list}>
           {macroprocessos == undefined || macroprocessos.length == 0 ? (
             <div className={styles.loadingTable}>
               {/* <Oval className={styles.loadingIcon} stroke="black" /> */}
@@ -334,7 +334,7 @@ export function Macroprocessos({ title }) {
 
                   {emptyRows > 0 ? (
                     <tr style={{ height: `${12.5 * emptyRows}%` }}>
-                      <td colSpan={5} />
+                      <td colSpan={3} />
                     </tr>
                   ) : null}
                 </tbody>

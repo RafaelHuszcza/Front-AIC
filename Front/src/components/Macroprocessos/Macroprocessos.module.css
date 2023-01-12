@@ -28,7 +28,7 @@
   border-radius: 5px;
 }
 
-.listDataSources {
+.list {
   display: flex;
   flex-direction: column;
   height: 80%;
