@@ -2,124 +2,213 @@ import styles from "./Atividades.module.css";
 import React, { useRef, useEffect, useState } from "react";
 import { Modal, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Oval } from "react-loading-icons";
 import { TableFooter } from "../Table/TableFooter/TableFooter";
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import * as yup from "yup";
 import { ValidationError } from "yup";
 import { formatDate } from "../../helpers/dateFormatter";
-
+import { DeleteBox } from "../DeleteBox/DeleteBox";
 
 export function Atividades({ title }) {
-    const navigate = useNavigate();
-    const formRef = useRef();
-  
-    const [currentPage, setCurrentPage] = useState(1);
-    const [openModal, setOpenModal] = useState(false);
-    const [error, setError] = useState("");
-    const [changeatividade, setChangeatividade] = useState(false);
-  
-    // const [isLoaded, setIsLoaded] = useState(true);
-    const [id, setId] = useState(
-      localStorage.getItem("@aic2:atividades") != undefined
-        ? JSON.parse(localStorage.getItem("@aic2:atividades")).length
-        : 1
+  const formRef = useRef();
+  const formRef2 = useRef();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [openModal, setOpenModal] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [error, setError] = useState("");
+  const [changeAtv, setChangeAtv] = useState(false);
+  const [isActionBoxOpen, setIsActionBoxOpen] = useState(false);
+  const [atvToDeleteId, setAtvToDeleteId] = useState(null);
+  const [atvToEdit, setAtvToEdit] = useState({});
+
+  const [id, setId] = useState(
+    localStorage.getItem("@aic2:Atividades") != undefined
+      ? JSON.parse(localStorage.getItem("@aic2:Atividades")).length + 1
+      : 1
+  );
+
+  const [atvs, setAtvs] = useState(
+    localStorage.getItem("@aic2:Atividades") != undefined
+      ? JSON.parse(localStorage.getItem("@aic2:Atividades"))
+      : []
+  );
+  // const [processos, setProcessos] = useState(
+  //   localStorage.getItem("@aic2:Atividades") != undefined
+  //     ? JSON.parse(localStorage.getItem("@aic2:Atividades"))
+  //     : []
+  // );
+
+  const [processos, setProcessos] = useState([
+    { id: 1, name: "processo 1" },
+    { id: 2, name: "processo 2" },
+    { id: 3, name: "processo 3" },
+    { id: 4, name: "processo 4" },
+    { id: 5, name: "processo 5" },
+    { id: 6, name: "processo 6" },
+    { id: 7, name: "processo 7" },
+    { id: 8, name: "processo 8" },
+  ]);
+
+  const loadAtividadesLocalStorage = () => {
+    setAtvs(JSON.parse(localStorage.getItem("@aic2:Atividades")));
+  };
+
+  useEffect(() => {
+    loadAtividadesLocalStorage();
+  }, [changeAtv]);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const inputValues = [...formRef.current.elements].reduce(
+      (total, { name, value }) => {
+        if (name) return { ...total, [name]: value };
+        return total;
+      },
+      {}
     );
-  
-    const [atividades, setatividades] = useState(
-      localStorage.getItem("@aic2:atividades") != undefined
-        ? JSON.parse(localStorage.getItem("@aic2:atividades"))
-        : []
-    );
-  
-    // async function loadatividades(page) {
-    //   try {
-    //     const config = generateAccess();
-    //     let paramsWithpage = { params: { page: page } };
-    //     const response = await api.get("Aqui vai a rota", paramsWithpage);
-  
-    //     setatividades(response.data.results);
-    //     setIsLoaded(true);
-    //   } catch (err) {
-    //     setIsLoaded(true);
-    //     console.log(err);
-    //   }
-    // }
-  
-    // useEffect(() => {
-    //   loadatividades(currentPage);
-    // }, [currentPage]);
-  
-    const loadatividadesLocalStorage = () => {
-      setatividades(JSON.parse(localStorage.getItem("@aic2:atividades")));
-    };
-  
-    useEffect(() => {
-      loadatividadesLocalStorage();
-    }, [changeatividade]);
-  
-    const onSubmit = async (e) => {
-      e.preventDefault();
-  
-      const inputValues = [...formRef.current.elements].reduce(
-        (total, { name, value }) => {
-          if (name) return { ...total, [name]: value };
-          return total;
-        },
-        {}
-      );
-      try {
-        const schema = yup.object().shape({
-          name: yup.string().required("A atividade deve conter um nome"),
-        });
-  
-        await schema.validate(inputValues);
-        inputValues["id"] = id;
-        inputValues["createdAt"] = new Date();
-        setId((prev) => prev + 1);
-  
-        // const response = await api.post("url da api aqui", inputValues);
-        setError("");
-        let atividade =
-          atividades != null
-            ? [...atividades, inputValues]
-            : [inputValues];
-        localStorage.setItem("@aic2:atividades", JSON.stringify(atividade));
-        setChangeatividade(!changeatividade);
-        handleCloseModal();
-      } catch (err) {
-        if (err instanceof ValidationError) {
-          setError(err.errors[0]);
-        } else {
-          setError("");
-          console.log(err);
+
+    try {
+      const schema = yup.object().shape({
+        processo: yup
+          .string()
+          .required("A atividade deve conter um processo vinculado"),
+        name: yup.string().required("A atividade deve conter um nome"),
+      });
+
+      await schema.validate(inputValues);
+
+      inputValues["id"] = id;
+      inputValues["createdAt"] = new Date();
+      let tempIdProcesses = inputValues["processo"];
+      for (let i in processos) {
+        if (processos[i].id == tempIdProcesses) {
+          let processoInput = processos[i];
+          inputValues["processo"] = processoInput;
         }
       }
-    };
-  
-    const styleModal = {
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-    };
-  
-    const emptyRows = atividades ? 6 - atividades.length : 6;
-  
-    const changePage = (type) => {
-      if (atividades.length != 0) {
-        if (type === "increase") {
-          if (Math.ceil(atividades.length / 6) - currentPage >= 1) {
-            setCurrentPage(currentPage + 1);
-          }
-        } else if (type === "decrease") {
-          if (currentPage !== 1) setCurrentPage(currentPage - 1);
-        }
-      }
-    };
-    const handleCloseModal = () => {
-      setOpenModal(false);
+      setId((prev) => prev + 1);
       setError("");
-    };
+      let atividades = atvs != null ? [...atvs, inputValues] : [inputValues];
+      localStorage.setItem("@aic2:Atividades", JSON.stringify(atividades));
+      setChangeAtv(!changeAtv);
+      handleCloseModal();
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        setError(err.errors[0]);
+      } else {
+        setError("");
+        console.log(err);
+      }
+    }
+  };
+  const onSubmitEdit = async (e) => {
+    e.preventDefault();
+
+    const inputValues = [...formRef2.current.elements].reduce(
+      (total, { name, value }) => {
+        if (name) return { ...total, [name]: value };
+        return total;
+      },
+      {}
+    );
+
+    try {
+      const schema = yup.object().shape({
+        processo: yup
+          .string()
+          .required("A atividade deve conter um processo vinculado"),
+        name: yup.string().required("A Macroprocesso deve conter um nome"),
+      });
+
+      await schema.validate(inputValues);
+
+      let editing = { ...atvToEdit };
+
+      editing.name = inputValues["name"];
+
+      let tempIdProcesses = inputValues["processo"];
+      for (let i in processos) {
+        if (processos[i].id == tempIdProcesses) {
+          let processoInput = processos[i];
+
+          inputValues["processo"] = processoInput;
+        }
+      }
+
+      editing.processo = inputValues["processo"];
+      editing["editedAt"] = new Date();
+      setError("");
+
+      let newAtvs = [...atvs];
+      for (let i in newAtvs) {
+        if (newAtvs[i].id == editing.id) {
+          newAtvs[i] = editing;
+        }
+      }
+
+      localStorage.setItem("@aic2:Atividades", JSON.stringify(newAtvs));
+      setChangeAtv(!changeAtv);
+      handleCloseModalEdit();
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        setError(err.errors[0]);
+      } else {
+        setError("");
+        console.log(err);
+      }
+    }
+  };
+  const deleteAtv = async (isDeleteConfirmed) => {
+    if (!isDeleteConfirmed) {
+      setIsActionBoxOpen(false);
+      return;
+    }
+    let newAtvs = [...atvs];
+    for (let i in newAtvs) {
+      if (newAtvs[i].id == atvToDeleteId) {
+        newAtvs.splice(i, 1);
+      }
+    }
+
+    localStorage.setItem("@aic2:Atividades", JSON.stringify(newAtvs));
+    setCurrentPage(1);
+    setChangeAtv(!changeAtv);
+
+    setIsActionBoxOpen(false);
+  };
+  const styleModal = {
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  };
+
+  const emptyRows =
+    currentPage > 1
+      ? Math.max(0, currentPage * 6 - atvs.length)
+      : atvs
+      ? 6 - atvs.length
+      : 6;
+  const changePage = (type) => {
+    if (atvs.length != 0) {
+      if (type === "increase") {
+        if (Math.ceil(atvs.length / 6) - currentPage >= 1) {
+          setCurrentPage(currentPage + 1);
+        }
+      } else if (type === "decrease") {
+        if (currentPage !== 1) setCurrentPage(currentPage - 1);
+      }
+    }
+  };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setError("");
+  };
+  const handleCloseModalEdit = () => {
+    setOpenModalEdit(false);
+    setError("");
+  };
+
   return (
     <>
       <Modal open={openModal} onClose={handleCloseModal}>
@@ -127,11 +216,11 @@ export function Atividades({ title }) {
           <div className={styles.modalHeader}>
             <p>Adicionar Atividade</p>
           </div>
-          <form id="addatividade" onSubmit={onSubmit} ref={formRef}>
+          <form id="addAtividade" onSubmit={onSubmit} ref={formRef}>
             <div className={styles.row}>
               <div className={styles.leftContainer}>
                 <label htmlFor="name">{`Atividade`}</label>
-                <input required
+                <input
                   className={styles.input}
                   type="text"
                   autoComplete="off"
@@ -139,19 +228,39 @@ export function Atividades({ title }) {
                   name="name"
                   placeholder="Informe o nome da Atividade..."
                 />
-                <label htmlFor="name">{`Processo`}</label>
-                <select   required></select>
               </div>
-              
-                
-                
-              
+              <div className={styles.leftContainer}>
+                <label
+                  className={styles.seletorFirstHeader}
+                >{`Processo`}</label>
+                <select
+                  name="processo"
+                  id="processo"
+                  className={styles.seletor}
+                >
+                  <option
+                    className={styles.seletorLabel}
+                    value=""
+                    disable="disable"
+                    hidden
+                  >
+                    Selecione a atividade relacionada
+                  </option>
+
+                  {processos.map((processo) => (
+                    <option key={processo.id} value={processo.id}>
+                      {processo.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </form>
           {error ? <div className={styles.error}>{error}</div> : null}
           <div className={styles.applyButton}>
             <button
-              form="addatividade"
+              htmlFor="addAtividade"
+              form="addAtividade"
               type="submit"
               className={styles.addButton}
               id={styles.applyButton}
@@ -166,13 +275,78 @@ export function Atividades({ title }) {
         </Box>
       </Modal>
 
+      <Modal open={openModalEdit} onClose={handleCloseModalEdit}>
+        <Box className={styles.modal} sx={{ ...styleModal }}>
+          <div className={styles.modalHeader}>
+            <p>Editar Atividade</p>
+          </div>
+          <form id="editAtividade" onSubmit={onSubmitEdit} ref={formRef2}>
+            <div className={styles.row}>
+              <div className={styles.leftContainer}>
+                <label htmlFor="name">{`Atividade`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="name"
+                  name="name"
+                  placeholder="Informe o nome da Atividade..."
+                  defaultValue={atvToEdit?.name}
+                />
+              </div>
+              <div className={styles.leftContainer}>
+                <label
+                  className={styles.seletorFirstHeader}
+                >{`Processo`}</label>
+                <select
+                  name="processo"
+                  id="processo"
+                  className={styles.seletor}
+                  defaultValue={atvToEdit?.processo?.id}
+                >
+                  <option
+                    className={styles.seletorLabel}
+                    value=""
+                    disable="disable"
+                    hidden
+                  >
+                    Selecione a atividade relacionada
+                  </option>
 
-    <main className={styles.mainAtividades}>
-    <div className={styles.topInformations}>
-      <div className={styles.textAtividades}>
-        <p>{title}</p>
-      </div>
-      <button
+                  {processos.map((processo) => (
+                    <option key={processo.id} value={processo.id}>
+                      {processo.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </form>
+          {error ? <div className={styles.error}>{error}</div> : null}
+          <div className={styles.applyButton}>
+            <button
+              form="editAtividade"
+              type="submit"
+              className={styles.addButton}
+              id={styles.applyButton}
+              onClick={() => console.log("")}
+            >
+              Editar
+            </button>
+          </div>
+          <CloseOutlined
+            className={styles.closeModal}
+            onClick={handleCloseModalEdit}
+          />
+        </Box>
+      </Modal>
+
+      <main className={styles.mainAtividades}>
+        <div className={styles.topInformations}>
+          <div className={styles.textAtividades}>
+            <p>{title}</p>
+          </div>
+          <button
             className={styles.openModal}
             onClick={() => setOpenModal(true)}
           >
@@ -180,27 +354,56 @@ export function Atividades({ title }) {
           </button>
         </div>
         <div className={styles.listDataSources}>
-          {atividades == undefined || atividades.length == 0 ? (
-            <div className={styles.loadingTable}>
-              {/* <Oval className={styles.loadingIcon} stroke="black" /> */}
-            </div>
+          {atvs == undefined || atvs.length == 0 ? (
+            <div className={styles.loadingTable}></div>
           ) : (
             <div className={styles.tableDiv}>
               <table className={styles.table}>
                 <thead className={styles.tbHeader}>
                   <tr>
                     <th className={styles.date}>Data de Criação</th>
-                    <th>Nome </th>
+                    <th>Titulo da Atividade </th>
+                    <th className={styles.process}>Processo relacionado </th>
+                    <th className={styles.option}>Opções </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {atividades != undefined && atividades.length != 0
-                    ? atividades.map((atividade) => (
-                        <tr key={atividade.id}>
-                          <td>{formatDate(atividade.createdAt)}</td>
-                          <td>{atividade.name}</td>
-                        </tr>
-                      ))
+                  {atvs != undefined && atvs.length != 0
+                    ? atvs
+                        .slice((currentPage - 1) * 6, (currentPage - 1) * 6 + 6)
+                        .map((atividade) => (
+                          <tr key={atividade.id}>
+                            <td>{formatDate(atividade.createdAt)}</td>
+                            <td>{atividade.name}</td>
+                            <td>{atividade.processo.name}</td>
+                            <td>
+                              <div className={styles.icons}>
+                                <EditOutlined
+                                  className={styles.iconsGap}
+                                  onClick={() => {
+                                    setAtvToEdit(atividade);
+                                    setOpenModalEdit(true);
+                                  }}
+                                />
+
+                                <DeleteOutlined
+                                  className={styles.iconsGap}
+                                  onClick={() => {
+                                    setIsActionBoxOpen(!isActionBoxOpen);
+                                    setAtvToDeleteId(atividade.id);
+                                  }}
+                                />
+
+                                {atvToDeleteId === atividade.id ? (
+                                  <DeleteBox
+                                    isOpen={isActionBoxOpen}
+                                    action={deleteAtv}
+                                  />
+                                ) : null}
+                              </div>
+                            </td>
+                          </tr>
+                        ))
                     : null}
 
                   {emptyRows > 0 ? (
@@ -211,7 +414,7 @@ export function Atividades({ title }) {
                 </tbody>
               </table>
               <TableFooter
-                data={atividades.length}
+                data={atvs.length}
                 currentPage={currentPage}
                 changePage={changePage}
                 action={setCurrentPage}
@@ -219,7 +422,7 @@ export function Atividades({ title }) {
             </div>
           )}
         </div>
-    </main>
+      </main>
     </>
   );
 }

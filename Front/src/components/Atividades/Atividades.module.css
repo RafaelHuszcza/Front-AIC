@@ -59,13 +59,25 @@ td {
 
 .tbHeader th {
   text-align: center;
-  width: 70%;
+  width: 35%;
   color: var(--white);
   background-color: var(--orange-500);
 }
 .tbHeader .date {
   text-align: center;
-  width: 30%;
+  width: 20%;
+  color: var(--white);
+  background-color: var(--orange-500);
+}
+.tbHeader .processes {
+  text-align: center;
+  width: 35%;
+  color: var(--white);
+  background-color: var(--orange-500);
+}
+.tbHeader .option {
+  text-align: center;
+  width: 20%;
   color: var(--white);
   background-color: var(--orange-500);
 }
@@ -111,7 +123,7 @@ td {
   position: absolute;
   background-color: var(--white);
   width: 400px;
-  height: 300px;
+  height: 500px;
   box-shadow: 24px;
 }
 
@@ -188,4 +200,44 @@ td {
   font-size: 16px;
   line-height: 16px;
   padding-left: 0.813rem;
+}
+
+.seletorFirstHeader {
+  margin-bottom: 0.5rem;
+}
+
+.seletorHeader {
+  margin-bottom: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.seletor {
+  background: var(--white);
+  border: 1px solid var(--black);
+  border-radius: 4px;
+  width: 342.42px;
+  height: 44px;
+  border-radius: 4px;
+  padding-left: 0.813rem;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  font: 1em sans-serif;
+  color: var(--black);
+}
+
+.seletorLabel {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  display: none;
+}
+.icons {
+  position: relative;
+  font-size: 20px;
+}
+.iconsGap {
+  margin-left: 4px;
 }
