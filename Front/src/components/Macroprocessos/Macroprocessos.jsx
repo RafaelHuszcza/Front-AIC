@@ -102,8 +102,14 @@ export function Macroprocessos({ title }) {
     transform: "translate(-50%, -50%)",
   };
 
-  const emptyRows = macroprocessos ? 6 - macroprocessos.length : 6;
+  // const emptyRows = macroprocessos ? 6 - macroprocessos.length : 6;
 
+  const emptyRows =
+    currentPage > 1
+      ? Math.max(0, currentPage * 6 - macroprocessos.length)
+      : macroprocessos
+      ? 6 - macroprocessos.length
+      : 6;
   const changePage = (type) => {
     if (macroprocessos.length != 0) {
       if (type === "increase") {
@@ -119,7 +125,6 @@ export function Macroprocessos({ title }) {
     setOpenModal(false);
     setError("");
   };
-
   return (
     <>
       <Modal open={openModal} onClose={handleCloseModal}>
@@ -187,12 +192,14 @@ export function Macroprocessos({ title }) {
                 </thead>
                 <tbody>
                   {macroprocessos != undefined && macroprocessos.length != 0
-                    ? macroprocessos.map((macroprocesso) => (
-                        <tr key={macroprocesso.id}>
-                          <td>{formatDate(macroprocesso.createdAt)}</td>
-                          <td>{macroprocesso.name}</td>
-                        </tr>
-                      ))
+                    ? macroprocessos
+                        .slice((currentPage - 1) * 6, (currentPage - 1) * 6 + 6)
+                        .map((macroprocesso) => (
+                          <tr key={macroprocesso.id}>
+                            <td>{formatDate(macroprocesso.createdAt)}</td>
+                            <td>{macroprocesso.name}</td>
+                          </tr>
+                        ))
                     : null}
 
                   {emptyRows > 0 ? (
