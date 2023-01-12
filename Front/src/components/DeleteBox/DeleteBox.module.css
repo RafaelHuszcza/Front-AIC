@@ -1,0 +1,54 @@
+.deleteContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  z-index: 2;
+  top: -1rem;
+}
+
+.deleteBox {
+  width: 12rem;
+  height: 4rem;
+  background: var(--brown-100);
+  border-radius: 0.6rem;
+  padding-top: 0.2rem;
+}
+
+.deleteBox span {
+  font-size: 0.8rem;
+  font-weight: bold;
+  line-height: 0.1rem;
+  color: var(--white);
+}
+
+.deleteButtonsContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.2rem;
+  padding: 0 1rem;
+}
+
+.deleteButtonsContainer button {
+  display: flex;
+  width: 100%;
+  border: 0;
+  border-radius: 0.4rem;
+  color: var(--white);
+  justify-content: center;
+}
+
+.deleteButtonsContainer button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.confirmButton {
+  background: var(--green-500);
+}
+
+.cancelButton {
+  background: var(--red-500);
+  margin-left: 0.6rem;
+}

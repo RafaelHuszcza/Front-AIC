@@ -1,24 +1,26 @@
 import styles from "./Macroprocessos.module.css";
 import React, { useRef, useEffect, useState } from "react";
 import { Modal, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { Oval } from "react-loading-icons";
+
 import { TableFooter } from "../Table/TableFooter/TableFooter";
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import * as yup from "yup";
 import { ValidationError } from "yup";
 import { formatDate } from "../../helpers/dateFormatter";
+import { DeleteBox } from "../DeleteBox/DeleteBox";
 
 export function Macroprocessos({ title }) {
-  const navigate = useNavigate();
   const formRef = useRef();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [openModal, setOpenModal] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
   const [error, setError] = useState("");
   const [changeMacro, setChangeMacro] = useState(false);
+  const [isActionBoxOpen, setIsActionBoxOpen] = useState(false);
+  const [macroToDeleteId, setMacroToDeleteId] = useState(null);
+  const [macroToEdit, setMacroToEdit] = useState({});
 
-  // const [isLoaded, setIsLoaded] = useState(true);
   const [id, setId] = useState(
     localStorage.getItem("@aic2:Macroprocessos") != undefined
       ? JSON.parse(localStorage.getItem("@aic2:Macroprocessos")).length
@@ -95,6 +97,64 @@ export function Macroprocessos({ title }) {
       }
     }
   };
+  const onSubmitEdit = async (e) => {
+    e.preventDefault();
+
+    const inputValues = [...formRef.current.elements].reduce(
+      (total, { name, value }) => {
+        if (name) return { ...total, [name]: value };
+        return total;
+      },
+      {}
+    );
+    try {
+      const schema = yup.object().shape({
+        name: yup.string().required("A Macroprocesso deve conter um nome"),
+      });
+
+      await schema.validate(inputValues);
+      let editing = { ...macroToEdit };
+      editing.name = inputValues["name"];
+      editing["editedAt"] = new Date();
+      setError("");
+
+      let newMacros = [...macroprocessos];
+      for (let i in newMacros) {
+        if (newMacros[i].id == editing.id) {
+          newMacros[i] = editing;
+        }
+      }
+
+      localStorage.setItem("@aic2:Macroprocessos", JSON.stringify(newMacros));
+      setChangeMacro(!changeMacro);
+      handleCloseModalEdit();
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        setError(err.errors[0]);
+      } else {
+        setError("");
+        console.log(err);
+      }
+    }
+  };
+  const deleteMacro = async (isDeleteConfirmed) => {
+    if (!isDeleteConfirmed) {
+      setIsActionBoxOpen(false);
+      return;
+    }
+    let newMacros = [...macroprocessos];
+    for (let i in newMacros) {
+      if (newMacros[i].id == macroToDeleteId) {
+        newMacros.splice(i, 1);
+      }
+    }
+
+    localStorage.setItem("@aic2:Macroprocessos", JSON.stringify(newMacros));
+    setCurrentPage(1);
+    setChangeMacro(!changeMacro);
+
+    setIsActionBoxOpen(false);
+  };
 
   const styleModal = {
     top: "50%",
@@ -123,6 +183,10 @@ export function Macroprocessos({ title }) {
   };
   const handleCloseModal = () => {
     setOpenModal(false);
+    setError("");
+  };
+  const handleCloseModalEdit = () => {
+    setOpenModalEdit(false);
     setError("");
   };
   return (
@@ -164,6 +228,45 @@ export function Macroprocessos({ title }) {
           />
         </Box>
       </Modal>
+
+      <Modal open={openModalEdit} onClose={handleCloseModalEdit}>
+        <Box className={styles.modal} sx={{ ...styleModal }}>
+          <div className={styles.modalHeader}>
+            <p>Editar Macroprocesso</p>
+          </div>
+          <form id="editMacro" onSubmit={onSubmitEdit} ref={formRef}>
+            <div className={styles.row}>
+              <div className={styles.leftContainer}>
+                <label htmlFor="name">{`Macroprocesso`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="name"
+                  name="name"
+                  placeholder="Informe o nome do Macroprocesso"
+                  defaultValue={macroToEdit.name}
+                />
+              </div>
+            </div>
+          </form>
+          {error ? <div className={styles.error}>{error}</div> : null}
+          <div className={styles.applyButton}>
+            <button
+              form="editMacro"
+              type="submit"
+              className={styles.addButton}
+              id={styles.applyButton}
+            >
+              Editar
+            </button>
+          </div>
+          <CloseOutlined
+            className={styles.closeModal}
+            onClick={handleCloseModalEdit}
+          />
+        </Box>
+      </Modal>
       <main className={styles.mainMacroprocessos}>
         <div className={styles.topInformations}>
           <div className={styles.textMacro}>
@@ -188,6 +291,7 @@ export function Macroprocessos({ title }) {
                   <tr>
                     <th className={styles.date}>Data de Criação</th>
                     <th>Titulo do Macroprocesso </th>
+                    <th className={styles.option}>Opções </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -198,6 +302,32 @@ export function Macroprocessos({ title }) {
                           <tr key={macroprocesso.id}>
                             <td>{formatDate(macroprocesso.createdAt)}</td>
                             <td>{macroprocesso.name}</td>
+                            <td>
+                              <div className={styles.icons}>
+                                <EditOutlined
+                                  className={styles.iconsGap}
+                                  onClick={() => {
+                                    setMacroToEdit(macroprocesso);
+                                    setOpenModalEdit(true);
+                                  }}
+                                />
+
+                                <DeleteOutlined
+                                  className={styles.iconsGap}
+                                  onClick={() => {
+                                    setIsActionBoxOpen(!isActionBoxOpen);
+                                    setMacroToDeleteId(macroprocesso.id);
+                                  }}
+                                />
+
+                                {macroToDeleteId === macroprocesso.id ? (
+                                  <DeleteBox
+                                    isOpen={isActionBoxOpen}
+                                    action={deleteMacro}
+                                  />
+                                ) : null}
+                              </div>
+                            </td>
                           </tr>
                         ))
                     : null}
