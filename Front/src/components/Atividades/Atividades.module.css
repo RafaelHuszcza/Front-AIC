@@ -1,13 +1,191 @@
-.mainMacroprocessos {
+.mainAtividades {
   width: 100%;
   height: calc(100vh - 40px);
-  background-color: red;
+  background-color: var(--white);
 }
-.textMacro {
+
+.textAtividades {
   width: 100%;
   display: flex;
+  color: var(--red-200);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.15px;
+  border-bottom: 1.65px solid var(--grey-200);
+  padding-top: 1rem;
+  padding-left: 3.625rem;
+}
+
+.openModal {
+  width: Hug (143px);
+  height: Hug (30px);
+  padding: 7px 19px;
+  margin-left: 1.25rem;
+  margin-top: 1.72rem;
+  background: var(--white-200);
+  border: 1px solid var(--grey-200);
+  border-radius: 5px;
+}
+
+.listDataSources {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+}
+.tableDiv {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(92% - 1rem);
+}
+
+.table {
+  border-collapse: collapse;
+
+  border-radius: 4px;
+  width: 100%;
+  height: 87.5%;
+}
+
+table,
+th,
+td {
+  border: 1px solid var(--grey-200);
+}
+
+.tbHeader th {
+  text-align: center;
+  width: 70%;
   color: var(--white);
-  font-size: 40px;
+  background-color: var(--orange-500);
+}
+.tbHeader .date {
+  text-align: center;
+  width: 30%;
+  color: var(--white);
+  background-color: var(--orange-500);
+}
+.tbHeader {
+  height: 12.5%;
+}
+
+.table td {
+  text-align: center;
+  background-color: var(--white);
+}
+
+.table tr {
+  height: 12.5%;
+}
+
+.closeModal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.loadingTable {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  padding-top: 2rem;
+  height: 100%;
+  width: 100%;
+}
+.loadingIcon {
+  width: 5rem;
+  height: 5rem;
+}
+
+.buttons {
+  width: 100%;
+  height: 8%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.modal {
+  position: absolute;
+  background-color: var(--white);
+  width: 400px;
+  height: 300px;
+  box-shadow: 24px;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20.57px 0 0 40px;
+  border-bottom: 1.65px solid var(--white-200);
+  color: var(--red-200);
+  letter-spacing: 0.15px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  padding-top: 2.5rem;
+  margin: 0 2rem;
+  font-size: 16px;
+  color: var(--black-200);
+  font-style: normal;
+  font-family: "Lato";
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0.15px;
+}
+.error {
+  text-align: center;
+  color: red;
+}
+
+.addButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--orange-500);
+  height: 44px;
+  width: 344px;
+  border-radius: 3px;
+}
+
+.applyButton {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+#applyButton {
+  color: var(--white);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  border: none;
+}
+
+.input {
+  width: 342.42px;
+  height: 44px;
+  background: var(--white);
+  border: 1px solid var(--black-200);
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  padding-left: 0.813rem;
 }
