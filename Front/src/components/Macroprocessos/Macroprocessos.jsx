@@ -1,7 +1,6 @@
 import styles from "./Macroprocessos.module.css";
 import React, { useRef, useEffect, useState } from "react";
 import { Modal, Box } from "@mui/material";
-
 import { TableFooter } from "../Table/TableFooter/TableFooter";
 import { CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import * as yup from "yup";
@@ -23,7 +22,7 @@ export function Macroprocessos({ title }) {
 
   const [id, setId] = useState(
     localStorage.getItem("@aic2:Macroprocessos") != undefined
-      ? JSON.parse(localStorage.getItem("@aic2:Macroprocessos")).length
+      ? JSON.parse(localStorage.getItem("@aic2:Macroprocessos")).length + 1
       : 1
   );
 
@@ -97,6 +96,7 @@ export function Macroprocessos({ title }) {
       }
     }
   };
+
   const onSubmitEdit = async (e) => {
     e.preventDefault();
 
@@ -206,7 +206,7 @@ export function Macroprocessos({ title }) {
                   autoComplete="off"
                   id="name"
                   name="name"
-                  placeholder="Informe o nome do Macroprocesso"
+                  placeholder="Informe o nome do Macroprocesso..."
                 />
               </div>
             </div>
@@ -244,8 +244,8 @@ export function Macroprocessos({ title }) {
                   autoComplete="off"
                   id="name"
                   name="name"
-                  placeholder="Informe o nome do Macroprocesso"
-                  defaultValue={macroToEdit.name}
+                  placeholder="Informe o nome do Macroprocesso..."
+                  defaultValue={macroToEdit?.name}
                 />
               </div>
             </div>
@@ -279,7 +279,7 @@ export function Macroprocessos({ title }) {
             Adicionar Macroprocesso
           </button>
         </div>
-        <div className={styles.listDataSources}>
+        <div className={styles.list}>
           {macroprocessos == undefined || macroprocessos.length == 0 ? (
             <div className={styles.loadingTable}>
               {/* <Oval className={styles.loadingIcon} stroke="black" /> */}
@@ -334,7 +334,7 @@ export function Macroprocessos({ title }) {
 
                   {emptyRows > 0 ? (
                     <tr style={{ height: `${12.5 * emptyRows}%` }}>
-                      <td colSpan={5} />
+                      <td colSpan={3} />
                     </tr>
                   ) : null}
                 </tbody>

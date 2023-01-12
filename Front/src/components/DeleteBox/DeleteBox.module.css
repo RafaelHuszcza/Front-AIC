@@ -5,6 +5,7 @@
   position: absolute;
   z-index: 2;
   top: -1rem;
+  left: -5rem;
 }
 
 .deleteBox {
