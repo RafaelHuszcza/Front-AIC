@@ -38,11 +38,14 @@ export function Eventos({ title }) {
         {popup?
         <div className={styles.backgroundPopup}> 
           <div className={styles.popup}>
+            
             <div className={styles.popupHeader}>
               <p>Adicionar Evento</p>
             </div>
+            
             <div className={styles.row}>
               <div className={styles.leftContainer}>
+                
                 <p className={styles.seletorFirstHeader}>{`Evento`}</p>
                 <input className={styles.defaultInput} type="text" autoComplete="off" id="Evento" placeholder="Informe o nome do evento" />
 
@@ -67,46 +70,58 @@ export function Eventos({ title }) {
                     )}
                   </div>
                 ))}
+
               </div>     
 
               
               <div className={styles.leftContainer}>
+                
                 <p className={styles.seletorFirstHeader}>{`Atividade`}</p>
                 <select  value={fontValue} onChange={e=>setFontes(e.target.value)} className={styles.seletor} required>
                   <option className={styles.seletorLabel} disabled selected value="">Selecione a atividade relacionada</option>
                 </select>
+                
+                {causaList.map((singleCausa, index) => (
+                  <div key={index}>
+                    <p className={styles.seletorHeader}>{`Fonte`}</p>
+                    <select value={fontValue} onChange={e=>setFontes(e.target.value)} className={styles.seletor} required>
+                      <option className={styles.seletorLabel} disabled selected value="">Selecione a fonte relacionada</option>
+                      <option value="Pessoas">Pessoas</option>
+                      <option value="Processos">Processos</option>
+                      <option value="Sistemas">Sistemas</option>
+                      <option value="Infraestrutura">Infraestrutura Física</option>
+                      <option value="Organizacional">Estrutura Organizacional</option>
+                      <option value="Tecnologia">Tecnologia</option>
+                      <option value="Eventos Externos">Eventos Externos</option>
+                    </select>
+                  </div>
+                ))}
 
-                <p className={styles.seletorHeader}>{`Fonte`}</p>
-                <select value={fontValue} onChange={e=>setFontes(e.target.value)} className={styles.seletor} required>
-                  <option className={styles.seletorLabel} disabled selected value="">Selecione a fonte relacionada</option>
-                  <option value="Pessoas">Pessoas</option>
-                  <option value="Processos">Processos</option>
-                  <option value="Sistemas">Sistemas</option>
-                  <option value="Infraestrutura">Infraestrutura Física</option>
-                  <option value="Organizacional">Estrutura Organizacional</option>
-                  <option value="Tecnologia">Tecnologia</option>
-                  <option value="Eventos Externos">Eventos Externos</option>
-                </select>
-
-                <p className={styles.seletorHeaderTipo}>{`Tipo`}</p>
-                <select value={tipoValue} onChange={e=>setTipos(e.target.value)} className={styles.seletor} required>
-                  <option value="" className={styles.seletorLabel} disabled selected>Selecione o tipo relacionado</option>
-                  <option value="Estrategico">1-Risco Estrategico</option>
-                  <option value="Operacional">2-Risco Operacional</option>
-                  <option value="Conformidades">3-Risco de Conformidades</option>
-                  <option value="Financeiro">4-Risco Financeiro/Orçamentário</option>
-                  <option value="Imagem">5-Risco de Imagem</option>
-                  <option value="Integridade">6-Risco de Integridade</option>
-                </select>
+                {consequenciaList.map((singleConsequencia, index) => (
+                  <div key={index}>
+                    <p className={styles.seletorHeaderTipo}>{`Tipo`}</p>
+                    <select value={tipoValue} onChange={e=>setTipos(e.target.value)} className={styles.seletor} required>
+                      <option value="" className={styles.seletorLabel} disabled selected>Selecione o tipo relacionado</option>
+                      <option value="Estrategico">1-Risco Estrategico</option>
+                      <option value="Operacional">2-Risco Operacional</option>
+                      <option value="Conformidades">3-Risco de Conformidades</option>
+                      <option value="Financeiro">4-Risco Financeiro/Orçamentário</option>
+                      <option value="Imagem">5-Risco de Imagem</option>
+                      <option value="Integridade">6-Risco de Integridade</option>
+                    </select>
+                  </div>
+                ))}
 
               </div>
             </div>
+
             <div className={styles.applyButton}>
               <button className={styles.addButton} id={styles.applyButton}>Adicionar</button>
             </div>
             <div className={styles.closeButton}>
               <button className={styles.abortButton} id={styles.closeButton} onClick={closePopup}>Cancelar e fechar</button>
             </div>
+          
           </div>
         </div>:""}
       </div>
