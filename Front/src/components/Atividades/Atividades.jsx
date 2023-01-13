@@ -33,22 +33,11 @@ export function Atividades({ title }) {
       ? JSON.parse(localStorage.getItem("@aic2:Atividades"))
       : []
   );
-  // const [processos, setProcessos] = useState(
-  //   localStorage.getItem("@aic2:Atividades") != undefined
-  //     ? JSON.parse(localStorage.getItem("@aic2:Atividades"))
-  //     : []
-  // );
-
-  const [processos, setProcessos] = useState([
-    { id: 1, name: "processo 1" },
-    { id: 2, name: "processo 2" },
-    { id: 3, name: "processo 3" },
-    { id: 4, name: "processo 4" },
-    { id: 5, name: "processo 5" },
-    { id: 6, name: "processo 6" },
-    { id: 7, name: "processo 7" },
-    { id: 8, name: "processo 8" },
-  ]);
+  const [processos, setProcessos] = useState(
+    localStorage.getItem("@aic2:Processos") != undefined
+      ? JSON.parse(localStorage.getItem("@aic2:Processos"))
+      : []
+  );
 
   const loadAtividadesLocalStorage = () => {
     setAtvs(JSON.parse(localStorage.getItem("@aic2:Atividades")));
@@ -244,7 +233,7 @@ export function Atividades({ title }) {
                     disable="disable"
                     hidden
                   >
-                    Selecione a atividade relacionada
+                    Selecione o Processo relacionada
                   </option>
 
                   {processos.map((processo) => (
@@ -310,7 +299,7 @@ export function Atividades({ title }) {
                     disable="disable"
                     hidden
                   >
-                    Selecione a atividade relacionada
+                    Selecione o Processo relacionada
                   </option>
 
                   {processos.map((processo) => (
