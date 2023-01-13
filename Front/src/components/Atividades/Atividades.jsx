@@ -144,6 +144,7 @@ export function Atividades({ title }) {
       }
     }
   };
+
   const deleteAtv = async (isDeleteConfirmed) => {
     if (!isDeleteConfirmed) {
       setIsActionBoxOpen(false);
@@ -338,6 +339,7 @@ export function Atividades({ title }) {
             Adicionar Atividade
           </button>
         </div>
+        
         <div className={styles.list}>
           {atvs == undefined || atvs.length == 0 ? (
             <div className={styles.loadingTable}></div>
