@@ -3,8 +3,17 @@
   --black-font: #333333
   --white: #ffffff;
   --white-100: #e5e5e5;
+  --white-200: #efefef
+  --white-300:  #dddddd;
   --grey-100: #e8e8e8;
-  --grey-200: #ACACAC;
+  --grey-200: #cccccc;
+  --red-200: #BF0A25;
+  --black-background: rgba(51, 51, 51, 0.5);
+  --black-200: #333333;
+  --brown-100: #666666;
+  --orange-500: #de790f;
+  --green-500: #22b573;
+  --red-500: #dd1515;
 }
 
 * {
