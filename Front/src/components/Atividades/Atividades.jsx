@@ -1,7 +1,7 @@
 import styles from "./Atividades.module.css";
 import React, { useRef, useEffect, useState } from "react";
 import { Modal, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+
 import { TableFooter } from "../Table/TableFooter/TableFooter";
 import { CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import * as yup from "yup";
@@ -22,11 +22,7 @@ export function Atividades({ title }) {
   const [atvToDeleteId, setAtvToDeleteId] = useState(null);
   const [atvToEdit, setAtvToEdit] = useState({});
 
-  const [id, setId] = useState(
-    localStorage.getItem("@aic2:Atividades") != undefined
-      ? JSON.parse(localStorage.getItem("@aic2:Atividades")).length + 1
-      : 1
-  );
+  const [id, setId] = useState(Date.now());
 
   const [atvs, setAtvs] = useState(
     localStorage.getItem("@aic2:Atividades") != undefined
@@ -76,7 +72,7 @@ export function Atividades({ title }) {
           inputValues["processo"] = processoInput;
         }
       }
-      setId((prev) => prev + 1);
+      setId(Date.now());
       setError("");
       let atividades = atvs != null ? [...atvs, inputValues] : [inputValues];
       localStorage.setItem("@aic2:Atividades", JSON.stringify(atividades));

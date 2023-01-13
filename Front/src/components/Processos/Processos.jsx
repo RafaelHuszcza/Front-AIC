@@ -22,13 +22,7 @@ export function Processos({ title }) {
   const [processoToDeleteId, setProcessoToDeleteId] = useState(null);
   const [processoToEdit, setProcessoToEdit] = useState({});
 
-  const [id, setId] = useState(
-    localStorage.getItem("@aic2:Processos") != undefined ||
-      localStorage.getItem("@aic2:Processos") != null
-      ? JSON.parse(localStorage.getItem("@aic2:Processos")).length + 1
-      : 1
-  );
-
+  const [id, setId] = useState(Date.now());
   const [processos, setProcessos] = useState(
     localStorage.getItem("@aic2:Processos") != undefined
       ? JSON.parse(localStorage.getItem("@aic2:Processos"))
@@ -79,10 +73,11 @@ export function Processos({ title }) {
           inputValues["macroprocesso"] = macroprocessos[i];
         }
       }
-      setId((prev) => prev + 1);
+      setId(Date.now());
       setError("");
       let processosAll =
         processos != null ? [...processos, inputValues] : [inputValues];
+      console.log(processosAll);
       localStorage.setItem("@aic2:Processos", JSON.stringify(processosAll));
       setChangeProcessos(!changeProcessos);
       handleCloseModal();
@@ -124,13 +119,12 @@ export function Processos({ title }) {
       editing.name = inputValues["name"];
       editing.organization = inputValues["organization"];
 
-      let tempIdMacroprocessos = inputValues["macroprocesso"];
+      let tempIdMacroprocesso = inputValues["macroprocesso"];
       for (let i in macroprocessos) {
-        if (macroprocessos[i].id == tempIdMacroprocessos) {
+        if (macroprocessos[i].id == tempIdMacroprocesso) {
           inputValues["macroprocesso"] = macroprocessos[i];
         }
       }
-
       editing.macroprocesso = inputValues["macroprocesso"];
       editing["editedAt"] = new Date();
       setError("");
@@ -211,9 +205,14 @@ export function Processos({ title }) {
           <div className={styles.modalHeader}>
             <p>Adicionar Processos</p>
           </div>
-          <form id="addProcesso" onSubmit={onSubmit} ref={formRef}>
+          <form
+            className={styles.formModal}
+            id="addProcesso"
+            onSubmit={onSubmit}
+            ref={formRef}
+          >
             <div className={styles.row}>
-              <div className={styles.leftContainer}>
+              <div className={styles.container}>
                 <label htmlFor="name">{`Processos`}</label>
                 <input
                   className={styles.input}
@@ -224,7 +223,7 @@ export function Processos({ title }) {
                   placeholder="Informe o nome do Processo..."
                 />
               </div>
-              <div className={styles.leftContainer}>
+              <div className={styles.container}>
                 <label
                   className={styles.seletorFirstHeader}
                 >{`Macroprocesso`}</label>
@@ -249,7 +248,95 @@ export function Processos({ title }) {
                   ))}
                 </select>
               </div>
-              <div className={styles.leftContainer}>
+              <div className={styles.container}>
+                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="organization"
+                  name="organization"
+                  placeholder="Informe o nome da Orgão/Unidade..."
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="organization"
+                  name="organization"
+                  placeholder="Informe o nome da Orgão/Unidade..."
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="organization"
+                  name="organization"
+                  placeholder="Informe o nome da Orgão/Unidade..."
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="organization"
+                  name="organization"
+                  placeholder="Informe o nome da Orgão/Unidade..."
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="organization"
+                  name="organization"
+                  placeholder="Informe o nome da Orgão/Unidade..."
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="organization"
+                  name="organization"
+                  placeholder="Informe o nome da Orgão/Unidade..."
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="organization"
+                  name="organization"
+                  placeholder="Informe o nome da Orgão/Unidade..."
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="organization"
+                  name="organization"
+                  placeholder="Informe o nome da Orgão/Unidade..."
+                />
+              </div>
+              <div className={styles.container}>
                 <label htmlFor="organization">{`Orgão / Unidade`}</label>
                 <input
                   className={styles.input}
@@ -285,9 +372,14 @@ export function Processos({ title }) {
           <div className={styles.modalHeader}>
             <p>Editar Processo</p>
           </div>
-          <form id="editProcesso" onSubmit={onSubmitEdit} ref={formRef2}>
+          <form
+            className={styles.formModal}
+            id="editProcesso"
+            onSubmit={onSubmitEdit}
+            ref={formRef2}
+          >
             <div className={styles.row}>
-              <div className={styles.leftContainer}>
+              <div className={styles.container}>
                 <label htmlFor="name">{`Processo`}</label>
                 <input
                   className={styles.input}
@@ -299,7 +391,7 @@ export function Processos({ title }) {
                   defaultValue={processoToEdit?.name}
                 />
               </div>
-              <div className={styles.leftContainer}>
+              <div className={styles.container}>
                 <label
                   className={styles.seletorFirstHeader}
                 >{`Macroprocesso`}</label>
@@ -325,7 +417,7 @@ export function Processos({ title }) {
                   ))}
                 </select>
               </div>
-              <div className={styles.leftContainer}>
+              <div className={styles.container}>
                 <label htmlFor="organization">{`Orgão / Unidade`}</label>
                 <input
                   className={styles.input}

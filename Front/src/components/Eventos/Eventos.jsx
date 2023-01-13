@@ -15,16 +15,18 @@ export function Eventos({ title }) {
     setPop(false);
   };
 
-  const [causaList, setCausaList] = useState([{ causa: ""}]);
+  const [causaList, setCausaList] = useState([{ causa: "" }]);
 
-  const [consequenciaList, setConsequenciaList] = useState([{ consequencia: ""}]);
+  const [consequenciaList, setConsequenciaList] = useState([
+    { consequencia: "" },
+  ]);
 
   const handleClickCausa = () => {
-    setCausaList([...causaList, { causa: ""}]);
+    setCausaList([...causaList, { causa: "" }]);
   };
 
   const handleClickConsequencia = () => {
-    setConsequenciaList([...consequenciaList, { consequencia: ""}]);
+    setConsequenciaList([...consequenciaList, { consequencia: "" }]);
   };
 
   return (
@@ -32,7 +34,9 @@ export function Eventos({ title }) {
       <div className={styles.textEventos}>
         <p>{title}</p>
       </div>
-      <button className={styles.openEvents} onClick={handleClickOpen}>Adicionar Evento</button>
+      <button className={styles.openEvents} onClick={handleClickOpen}>
+        Adicionar Evento
+      </button>
 
       <div>
         {popup?
@@ -135,7 +139,9 @@ export function Eventos({ title }) {
             </div>
           
           </div>
-        </div>:""}
+        ) : (
+          ""
+        )}
       </div>
     </main>
   );
