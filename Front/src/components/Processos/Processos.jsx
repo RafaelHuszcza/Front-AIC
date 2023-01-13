@@ -54,12 +54,35 @@ export function Processos({ title }) {
 
     try {
       const schema = yup.object().shape({
-        macroprocesso: yup
+        strategicObjectives: yup
           .string()
-          .required("O Processo deve conter um Macroprocesso vinculado"),
+          .required("O Processo deve conter Objetivos estratégicos"),
+        systems: yup.string().required("O Processo deve conter uma Data Final"),
+        laws: yup
+          .string()
+          .required("O Processo deve conter Leis e Regulamentos"),
+        periodEnd: yup
+          .string()
+          .required("O Processo deve conter uma Data Final"),
+        periodStart: yup
+          .string()
+          .required("O Processo deve conter uma Data inicial"),
+        responsible: yup
+          .string()
+          .required("O Processo deve conter ao menos um responsável"),
+        manager: yup
+          .string()
+          .required("O Processo deve conter um Gestor responsável"),
+        goal: yup.string().required("O Processo deve conter um Objetivo"),
+        coordination: yup
+          .string()
+          .required("O Processo deve conter uma Diretoria/Coordenação"),
         organization: yup
           .string()
           .required("O Processo deve conter uma Organização/Unidade"),
+        macroprocesso: yup
+          .string()
+          .required("O Processo deve conter um Macroprocesso vinculado"),
         name: yup.string().required("O Processo deve conter um nome"),
       });
 
@@ -103,12 +126,36 @@ export function Processos({ title }) {
 
     try {
       const schema = yup.object().shape({
-        macroprocesso: yup
+        strategicObjectives: yup
           .string()
-          .required("O Processo deve conter um Macroprocesso vinculado"),
+          .required("O Processo deve conter Objetivos estratégicos"),
+        systems: yup.string().required("O Processo deve conter uma Data Final"),
+        laws: yup
+          .string()
+          .required("O Processo deve conter Leis e Regulamentos"),
+        periodEnd: yup
+          .string()
+          .required("O Processo deve conter uma Data Final"),
+        periodStart: yup
+          .string()
+          .required("O Processo deve conter uma Data inicial"),
+        responsible: yup
+          .string()
+          .required("O Processo deve conter ao menos um responsável"),
+        manager: yup
+          .string()
+          .required("O Processo deve conter um Gestor responsável"),
+        goal: yup.string().required("O Processo deve conter um Objetivo"),
+        coordination: yup
+          .string()
+          .required("O Processo deve conter uma Diretoria/Coordenação"),
         organization: yup
           .string()
           .required("O Processo deve conter uma Organização/Unidade"),
+
+        macroprocesso: yup
+          .string()
+          .required("O Processo deve conter um Macroprocesso vinculado"),
         name: yup.string().required("O Processo deve conter um nome"),
       });
 
@@ -116,8 +163,9 @@ export function Processos({ title }) {
 
       let editing = { ...processoToEdit };
 
-      editing.name = inputValues["name"];
-      editing.organization = inputValues["organization"];
+      for (let i in inputValues) {
+        editing[i] = inputValues[i];
+      }
 
       let tempIdMacroprocesso = inputValues["macroprocesso"];
       for (let i in macroprocessos) {
@@ -256,95 +304,109 @@ export function Processos({ title }) {
                   autoComplete="off"
                   id="organization"
                   name="organization"
-                  placeholder="Informe o nome da Orgão/Unidade..."
+                  placeholder="Informe o órgão ou unidade responsável..."
                 />
               </div>
               <div className={styles.container}>
-                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <label htmlFor="coordination">{`Diretoria/Coordenação`}</label>
                 <input
                   className={styles.input}
                   type="text"
                   autoComplete="off"
-                  id="organization"
-                  name="organization"
-                  placeholder="Informe o nome da Orgão/Unidade..."
+                  id="coordination"
+                  name="coordination"
+                  placeholder="Informe a diretoria ou coordenação..."
                 />
               </div>
               <div className={styles.container}>
-                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <label htmlFor="goal">{`Objetivo`}</label>
                 <input
                   className={styles.input}
                   type="text"
                   autoComplete="off"
-                  id="organization"
-                  name="organization"
-                  placeholder="Informe o nome da Orgão/Unidade..."
+                  id="goal"
+                  name="goal"
+                  placeholder="Descreva o objetivo do processo ..."
                 />
               </div>
               <div className={styles.container}>
-                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <label htmlFor="manager">{`Gestor Responsável Pelo Processo`}</label>
                 <input
                   className={styles.input}
                   type="text"
                   autoComplete="off"
-                  id="organization"
-                  name="organization"
-                  placeholder="Informe o nome da Orgão/Unidade..."
+                  id="manager"
+                  name="manager"
+                  placeholder="Informe o gestor responsável..."
                 />
               </div>
               <div className={styles.container}>
-                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <label htmlFor="responsible">{`Responsáveis pela análise (Grupo de trabalho)`}</label>
                 <input
                   className={styles.input}
                   type="text"
                   autoComplete="off"
-                  id="organization"
-                  name="organization"
-                  placeholder="Informe o nome da Orgão/Unidade..."
+                  id="responsible"
+                  name="responsible"
+                  placeholder="Informe os responsáveis pela análise..."
                 />
               </div>
+
+              <div className={styles.containerDate}>
+                <div className={styles.containerBigDate}>
+                  <label htmlFor="periodStart">{`Inicio da Análise`}</label>
+                  <input
+                    className={styles.inputDate}
+                    type="date"
+                    autoComplete="off"
+                    id="periodStart"
+                    name="periodStart"
+                    placeholder="Data do início..."
+                  />
+                </div>
+                <div className={styles.containerBigDate}>
+                  <label htmlFor="periodEnd">{`Fim da Análise`}</label>
+                  <input
+                    className={styles.inputDate}
+                    type="date"
+                    autoComplete="off"
+                    id="periodEnd"
+                    name="periodEnd"
+                    placeholder="Data do fim..."
+                  />
+                </div>
+              </div>
               <div className={styles.container}>
-                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <label htmlFor="laws">{`Leis e Regulamentos Relacionados ao Processo`}</label>
                 <input
                   className={styles.input}
                   type="text"
                   autoComplete="off"
-                  id="organization"
-                  name="organization"
-                  placeholder="Informe o nome da Orgão/Unidade..."
+                  id="laws"
+                  name="laws"
+                  placeholder="Informe Leis e regulamentos..."
                 />
               </div>
               <div className={styles.container}>
-                <label htmlFor="organization">{`Orgão / Unidade`}</label>
+                <label htmlFor="systems">{`Sistemas Tecnológicos que Apoiam o Processo`}</label>
                 <input
                   className={styles.input}
                   type="text"
                   autoComplete="off"
-                  id="organization"
-                  name="organization"
-                  placeholder="Informe o nome da Orgão/Unidade..."
+                  id="systems"
+                  name="systems"
+                  placeholder="Informe sistemas tecnológicos que..."
                 />
               </div>
               <div className={styles.container}>
-                <label htmlFor="organization">{`Orgão / Unidade`}</label>
-                <input
-                  className={styles.input}
+                <label htmlFor="strategicObjectives">{`Ligação com os objetivos estratégicos`}</label>
+                <textarea
+                  className={styles.textArea}
                   type="text"
                   autoComplete="off"
-                  id="organization"
-                  name="organization"
-                  placeholder="Informe o nome da Orgão/Unidade..."
-                />
-              </div>
-              <div className={styles.container}>
-                <label htmlFor="organization">{`Orgão / Unidade`}</label>
-                <input
-                  className={styles.input}
-                  type="text"
-                  autoComplete="off"
-                  id="organization"
-                  name="organization"
-                  placeholder="Informe o nome da Orgão/Unidade..."
+                  id="strategicObjectives"
+                  name="strategicObjectives"
+                  placeholder="Descreva o objetivo do processo..."
                 />
               </div>
             </div>
@@ -427,6 +489,117 @@ export function Processos({ title }) {
                   name="organization"
                   placeholder="Informe o nome da Orgão/Unidade..."
                   defaultValue={processoToEdit?.organization}
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="coordination">{`Diretoria/Coordenação`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="coordination"
+                  name="coordination"
+                  placeholder="Informe a diretoria ou coordenação..."
+                  defaultValue={processoToEdit?.coordination}
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="goal">{`Objetivo`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="goal"
+                  name="goal"
+                  placeholder="Descreva o objetivo do processo ..."
+                  defaultValue={processoToEdit?.goal}
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="manager">{`Gestor Responsável Pelo Processo`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="manager"
+                  name="manager"
+                  placeholder="Informe o gestor responsável..."
+                  defaultValue={processoToEdit?.manager}
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="responsible">{`Responsáveis pela análise (Grupo de trabalho)`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="responsible"
+                  name="responsible"
+                  placeholder="Informe os responsáveis pela análise..."
+                  defaultValue={processoToEdit?.responsible}
+                />
+              </div>
+
+              <div className={styles.containerDate}>
+                <div className={styles.containerBigDate}>
+                  <label htmlFor="periodStart">{`Inicio da Análise`}</label>
+                  <input
+                    className={styles.inputDate}
+                    type="date"
+                    autoComplete="off"
+                    id="periodStart"
+                    name="periodStart"
+                    placeholder="Data do início..."
+                    defaultValue={processoToEdit?.periodStart}
+                  />
+                </div>
+                <div className={styles.containerBigDate}>
+                  <label htmlFor="periodEnd">{`Fim da Análise`}</label>
+                  <input
+                    className={styles.inputDate}
+                    type="date"
+                    autoComplete="off"
+                    id="periodEnd"
+                    name="periodEnd"
+                    placeholder="Data do fim..."
+                    defaultValue={processoToEdit?.periodEnd}
+                  />
+                </div>
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="laws">{`Leis e Regulamentos Relacionados ao Processo`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="laws"
+                  name="laws"
+                  placeholder="Informe Leis e regulamentos..."
+                  defaultValue={processoToEdit?.laws}
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="systems">{`Sistemas Tecnológicos que Apoiam o Processo`}</label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  autoComplete="off"
+                  id="systems"
+                  name="systems"
+                  placeholder="Informe sistemas tecnológicos que..."
+                  defaultValue={processoToEdit?.systems}
+                />
+              </div>
+              <div className={styles.container}>
+                <label htmlFor="strategicObjectives">{`Ligação com os objetivos estratégicos`}</label>
+                <textarea
+                  className={styles.textArea}
+                  type="text"
+                  autoComplete="off"
+                  id="strategicObjectives"
+                  name="strategicObjectives"
+                  placeholder="Descreva o objetivo do processo..."
+                  defaultValue={processoToEdit?.strategicObjectives}
                 />
               </div>
             </div>

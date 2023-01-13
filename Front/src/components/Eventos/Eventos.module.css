@@ -17,7 +17,7 @@
   padding-left: 3.625rem;
 }
 
-.openEvents {
+.openModal {
   width: 14rem;
   height: 3rem;
   padding: 0.5rem 1rem;
@@ -28,25 +28,105 @@
   border-radius: 5px;
 }
 
-.backgroundPopup {
-  background: var(--black-background);
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
+.list {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  height: calc(100% - 167px);
+  width: 100%;
+  padding: 1rem;
+}
+.tableDiv {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(92% - 1rem);
 }
 
-.popup {
-  position: absolute;
-  width: 819px;
-  min-height: 557px;
+.table {
+  border-collapse: collapse;
+
+  border-radius: 4px;
+  width: 100%;
+  height: 87.5%;
+}
+
+table,
+th,
+td {
+  border: 1px solid var(--grey-200);
+}
+
+.tbHeader th {
+  text-align: center;
+  width: 35%;
+  color: var(--white);
+  background-color: var(--orange-500);
+}
+.tbHeader .date {
+  text-align: center;
+  width: 20%;
+  color: var(--white);
+  background-color: var(--orange-500);
+}
+.tbHeader .processes {
+  text-align: center;
+  width: 35%;
+  color: var(--white);
+  background-color: var(--orange-500);
+}
+.tbHeader .option {
+  text-align: center;
+  width: 20%;
+  color: var(--white);
+  background-color: var(--orange-500);
+}
+.tbHeader {
+  height: 12.5%;
+}
+
+.table td {
+  text-align: center;
   background-color: var(--white);
 }
 
-.popupHeader {
+.table tr {
+  height: 12.5%;
+}
+
+.closeModal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.loadingTable {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.loadingIcon {
+  width: 5rem;
+  height: 5rem;
+}
+
+.buttons {
+  width: 100%;
+  height: 8%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.modal {
+  position: absolute;
+  background-color: var(--white);
+  width: 900px;
+  height: 600px;
+  box-shadow: 24px;
+}
+
+.modalHeader {
   display: flex;
   justify-content: flex-start;
   padding: 20.57px 0 0 40px;
@@ -57,6 +137,17 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 22px;
+}
+.error {
+  text-align: center;
+  color: red;
+}
+.icons {
+  position: relative;
+  font-size: 20px;
+}
+.iconsGap {
+  margin-left: 4px;
 }
 
 .row {
@@ -145,35 +236,11 @@ select:invalid {
 .applyButton {
   display: flex;
   justify-content: center;
-  margin: 4rem 0;
+  margin: 1rem 0;
 }
 
 #applyButton {
   color: var(--white);
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
-  border: none;
-}
-
-.closeButton {
-  display: flex;
-  justify-content: center;
-  margin: 0 0 4rem 0;
-}
-
-.abortButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.1);
-  height: 44px;
-  width: 172px;
-  border-radius: 3px;
-}
-
-#closeButton {
-  color: var(--black);
   font-weight: 400;
   font-size: 18px;
   line-height: 21px;
