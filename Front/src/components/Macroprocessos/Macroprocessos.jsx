@@ -20,11 +20,7 @@ export function Macroprocessos({ title }) {
   const [macroToDeleteId, setMacroToDeleteId] = useState(null);
   const [macroToEdit, setMacroToEdit] = useState({});
 
-  const [id, setId] = useState(
-    localStorage.getItem("@aic2:Macroprocessos") != undefined
-      ? JSON.parse(localStorage.getItem("@aic2:Macroprocessos")).length + 1
-      : 1
-  );
+  const [id, setId] = useState(Date.now());
 
   const [macroprocessos, setMacroprocessos] = useState(
     localStorage.getItem("@aic2:Macroprocessos") != undefined
@@ -76,7 +72,7 @@ export function Macroprocessos({ title }) {
       await schema.validate(inputValues);
       inputValues["id"] = id;
       inputValues["createdAt"] = new Date();
-      setId((prev) => prev + 1);
+      setId(Date.now());
 
       // const response = await api.post("url da api aqui", inputValues);
       setError("");
