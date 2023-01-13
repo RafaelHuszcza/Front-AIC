@@ -18,11 +18,11 @@
 }
 
 .openModal {
-  width: Hug (143px);
-  height: Hug (30px);
-  padding: 7px 19px;
-  margin-left: 1.25rem;
-  margin-top: 1.72rem;
+  width: 14rem;
+  height: 3rem;
+  padding: 0.5rem 1rem;
+  margin-left: 1.5rem;
+  margin-top: 1.5rem;
   background: var(--white-200);
   border: 1px solid var(--grey-200);
   border-radius: 5px;
@@ -31,10 +31,9 @@
 .list {
   display: flex;
   flex-direction: column;
-  height: 80%;
+  height: calc(100% -167px);
   width: 100%;
   padding: 1rem;
-  gap: 1rem;
 }
 .tableDiv {
   display: flex;

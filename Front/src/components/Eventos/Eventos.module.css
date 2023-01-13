@@ -18,11 +18,11 @@
 }
 
 .openEvents {
-  width: Hug (143px);
-  height: Hug (30px);
-  padding: 7px 19px;
-  margin-left: 1.25rem;
-  margin-top: 1.72rem;
+  width: 14rem;
+  height: 3rem;
+  padding: 0.5rem 1rem;
+  margin-left: 1.5rem;
+  margin-top: 1.5rem;
   background: var(--white-200);
   border: 1px solid var(--grey-200);
   border-radius: 5px;
@@ -88,11 +88,11 @@
   font-size: 16px;
   color: #333333;
   font-style: normal;
-  font-family: 'Lato';
+  font-family: "Lato";
   font-weight: 400;
   line-height: 19px;
   letter-spacing: 0.15px;
-  gap: 2.5em; 
+  gap: 2.5em;
 }
 
 .fakeCol {
@@ -100,7 +100,7 @@
   flex-direction: column;
 }
 
-.seletorHeader{
+.seletorHeader {
   margin-top: 1.25rem;
 }
 
@@ -166,7 +166,7 @@ select:invalid {
   display: flex;
   justify-content: center;
   align-items: center;
-  background:  rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.1);
   height: 44px;
   width: 172px;
   border-radius: 3px;
@@ -211,6 +211,6 @@ select:invalid {
 }
 
 .seletorHeaderTipo {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   margin-top: 3.781rem;
 }
