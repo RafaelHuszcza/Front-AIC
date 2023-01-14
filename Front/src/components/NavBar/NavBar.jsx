@@ -11,7 +11,7 @@ export function NavBar() {
   };
   return (
     <nav className={open ? styles.sideNav : styles.sideNavCollapsed}>
-      <div className={styles.divBtn}>
+      <div className={open ? styles.divBtn: styles.divBtnCollapsed}>
         <button className={styles.btn} onClick={toggleOpen}>
           <RxHamburgerMenu />
         </button>
