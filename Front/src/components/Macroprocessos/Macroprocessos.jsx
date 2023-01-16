@@ -265,9 +265,7 @@ export function Macroprocessos({ title }) {
       </Modal>
       <main className={styles.mainMacroprocessos}>
         <div className={styles.topInformations}>
-          <div className={styles.textMacro}>
-            <p>{title}</p>
-          </div>
+        <h1 className={styles.textMacro}>{title}</h1>
           <button
             className={styles.openModal}
             onClick={() => setOpenModal(true)}

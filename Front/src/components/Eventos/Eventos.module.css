@@ -13,8 +13,7 @@
   line-height: 22px;
   letter-spacing: 0.15px;
   border-bottom: 1.65px solid var(--grey-200);
-  padding-top: 1rem;
-  padding-left: 3.625rem;
+  padding: 1rem 0 1rem 3.625rem;
 }
 
 .openModal {

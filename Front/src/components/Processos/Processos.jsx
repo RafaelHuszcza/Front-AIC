@@ -624,9 +624,7 @@ export function Processos({ title }) {
 
       <main className={styles.mainProcessos}>
         <div className={styles.topInformations}>
-          <div className={styles.textProcessos}>
-            <h1 className={styles.pageTitle}>{title}</h1>
-          </div>
+          <h1 className={styles.textProcessos}>{title}</h1>
           <button
             className={styles.openModal}
             onClick={() => setOpenModal(true)}

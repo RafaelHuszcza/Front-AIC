@@ -588,9 +588,7 @@ export function Eventos({ title }) {
       </Modal>
 
       <div className={styles.topInformations}>
-        <div className={styles.textEventos}>
-          <p>{title}</p>
-        </div>
+      <h1 className={styles.textEventos}>{title}</h1>
         <button className={styles.openModal} onClick={() => setOpenModal(true)}>
           Adicionar Eventos
         </button>
