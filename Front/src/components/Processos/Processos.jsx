@@ -250,9 +250,9 @@ export function Processos({ title }) {
     <>
       <Modal open={openModal} onClose={handleCloseModal}>
         <Box className={styles.modal} sx={{ ...styleModal }}>
-          <div className={styles.modalHeader}>
-            <p>Adicionar Processos</p>
-          </div>
+          <h2 className={styles.modalHeader}>
+            Adicionar Processos
+          </h2>
           <form
             className={styles.formModal}
             id="addProcesso"
@@ -261,7 +261,7 @@ export function Processos({ title }) {
           >
             <div className={styles.row}>
               <div className={styles.container}>
-                <label htmlFor="name">{`Processos`}</label>
+                <label htmlFor="name">Processos</label>
                 <input
                   className={styles.input}
                   type="text"
@@ -624,9 +624,7 @@ export function Processos({ title }) {
 
       <main className={styles.mainProcessos}>
         <div className={styles.topInformations}>
-          <div className={styles.textProcessos}>
-            <p>{title}</p>
-          </div>
+          <h1 className={styles.textProcessos}>{title}</h1>
           <button
             className={styles.openModal}
             onClick={() => setOpenModal(true)}

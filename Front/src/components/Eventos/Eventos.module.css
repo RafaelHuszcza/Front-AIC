@@ -13,8 +13,7 @@
   line-height: 22px;
   letter-spacing: 0.15px;
   border-bottom: 1.65px solid var(--grey-200);
-  padding-top: 1rem;
-  padding-left: 3.625rem;
+  padding: 1rem 0 1rem 3.625rem;
 }
 
 .openModal {
@@ -189,10 +188,14 @@ td {
 .fakeCol {
   display: flex;
   flex-direction: column;
+  max-width: 50%;
 }
 
 .seletorHeader {
   margin-top: 1.25rem;
+  font: 16px arial;
+  color: var(--black-200);
+  width: min-content;
 }
 
 .seletor {
@@ -269,16 +272,24 @@ select:invalid {
   line-height: 14px;
   letter-spacing: 0.15px;
   color: #666666;
-}
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 
-.addMore {
-  align-items: flex-start;
-  margin-right: 8px;
-  width: 13px;
-  height: 13px;
+  background: transparent;
+  border: 0;
 }
 
 .seletorHeaderTipo {
   margin-bottom: 0.5rem;
   margin-top: 3.781rem;
+}
+
+.btnAddCausa {
+  background: transparent;
+  border: 0;
+}
+
+.minContent {
+  width: min-content;
 }

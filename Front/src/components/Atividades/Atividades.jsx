@@ -329,9 +329,7 @@ export function Atividades({ title }) {
 
       <main className={styles.mainAtividades}>
         <div className={styles.topInformations}>
-          <div className={styles.textAtividades}>
-            <p>{title}</p>
-          </div>
+        <h1 className={styles.textAtividades}>{title}</h1>
           <button
             className={styles.openModal}
             onClick={() => setOpenModal(true)}

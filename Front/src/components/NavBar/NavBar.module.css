@@ -7,15 +7,19 @@
   border-right: 2px solid var(--white-100);
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
+
 .sideNavCollapsed {
   composes: sideNav;
   transition: width 0.3s ease-in-out;
   width: 60px;
 }
+
 .menuItemsVisible {
   visibility: visible;
 }
+
 .menuItems {
   overflow: hidden;
   transition: visibility 0.3s ease-in-out;
@@ -35,6 +39,7 @@
 .linkText:hover {
   background-color: var(--grey-100);
 }
+
 .divBtn {
   display: flex;
   height: 2.5rem;
@@ -44,8 +49,15 @@
   color: var(--black);
   background-color: transparent;
   border: none;
+  margin-left: 12px;
+}
+
+.divBtnCollapsed {
+  composes: divBtn;
+  margin-left: 0;
   justify-content: center;
 }
+
 .btn {
   height: 100%;
   outline: inherit;
