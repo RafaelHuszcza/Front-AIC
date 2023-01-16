@@ -3,15 +3,15 @@ import React, { useRef, useEffect, useState } from "react";
 import { Modal, Box } from "@mui/material";
 
 import { TableFooter } from "../Table/TableFooter/TableFooter";
-import { CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { CloseOutlined, DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import * as yup from "yup";
 import { ValidationError } from "yup";
 import { formatDate } from "../../helpers/dateFormatter";
 import { DeleteBox } from "../DeleteBox/DeleteBox";
 
-import Add from "../../assets/more.png";
-
 export function Eventos({ title }) {
+  const MAX_CAUSA_CONSEQUENCIA_AMMOUNT = 3;
+
   const formRef = useRef();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -218,14 +218,12 @@ export function Eventos({ title }) {
     <main className={styles.mainEventos}>
       <Modal open={openModal} onClose={handleCloseModal}>
         <Box className={styles.modal} sx={{ ...styleModal }}>
-          <div className={styles.modalHeader}>
-            <p>Adicionar Evento</p>
-          </div>
+          <h2 className={styles.modalHeader}>Adicionar Evento</h2>
           <form id="addEventos" onSubmit={onSubmit} ref={formRef}>
-            <div className={styles.row}>
+            <div role='row' className={styles.row}>
               <div className={styles.leftContainer}>
                 <div className={styles.fakeCol}>
-                  <p>{`Evento`}</p>
+                  <h2 className={styles.seletorHeader}>Evento</h2>
                   <input
                     className={styles.defaultInput}
                     type="text"
@@ -234,9 +232,8 @@ export function Eventos({ title }) {
                     placeholder="Informe o nome do evento"
                   />
                 </div>
-
                 <div className={styles.fakeCol}>
-                  <p>{`Atividade`}</p>
+                  <h2 className={styles.seletorHeader}>Atividade</h2>
                   <select
                     value={fontValue}
                     onChange={(e) => setFontes(e.target.value)}
@@ -257,9 +254,9 @@ export function Eventos({ title }) {
 
               <div className={styles.defaultContainer}>
                 <div className={styles.fakeCol}>
-                  <p className={styles.seletorHeader}>{`Causas`}</p>
+                  <h2 className={styles.seletorHeader}>Causas</h2>
                   {causaList.map((singleCausa, index) => (
-                    <div key={index}>
+                    <div key={index} className={styles.minContent}>
                       <input
                         className={styles.defaultInput}
                         type="text"
@@ -269,13 +266,13 @@ export function Eventos({ title }) {
                         required
                       />
                       {causaList.length - 1 === index &&
-                        causaList.length < 3 && (
-                          <span id="addCausa" onClick={handleClickCausa}>
-                            <p className={styles.addCausaConsequencia}>
-                              <img src={Add} className={styles.addMore} />
+                        causaList.length < MAX_CAUSA_CONSEQUENCIA_AMMOUNT && (
+                          <button id="addCausa" onClick={handleClickCausa} className={styles.btnAddCausa}>
+                            <button className={styles.addCausaConsequencia}>
+                              <PlusOutlined size='13px' />
                               Adicionar mais uma causa
-                            </p>
-                          </span>
+                            </button>
+                          </button>
                         )}
                     </div>
                   ))}
@@ -337,10 +334,10 @@ export function Eventos({ title }) {
                             id="addConsequencia"
                             onClick={handleClickConsequencia}
                           >
-                            <p className={styles.addCausaConsequencia}>
-                              <img src={Add} className={styles.addMore} />
+                            <button className={styles.addCausaConsequencia}>
+                              <PlusOutlined size='13px' />
                               Adicionar mais uma consequência
-                            </p>
+                            </button>
                           </span>
                         )}
                     </div>
@@ -458,12 +455,12 @@ export function Eventos({ title }) {
                         required
                       />
                       {causaList.length - 1 === index &&
-                        causaList.length < 3 && (
+                        causaList.length < MAX_CAUSA_CONSEQUENCIA_AMMOUNT && (
                           <span id="addCausa" onClick={handleClickCausa}>
-                            <p className={styles.addCausaConsequencia}>
-                              <img src={Add} className={styles.addMore} />
+                            <button className={styles.addCausaConsequencia}>
+                              <PlusOutlined size='13px' />
                               Adicionar mais uma causa
-                            </p>
+                            </button>
                           </span>
                         )}
                     </div>
@@ -521,15 +518,15 @@ export function Eventos({ title }) {
                         required
                       />
                       {consequenciaList.length - 1 === index &&
-                        consequenciaList.length < 3 && (
+                        consequenciaList.length < MAX_CAUSA_CONSEQUENCIA_AMMOUNT && (
                           <span
                             id="addConsequencia"
                             onClick={handleClickConsequencia}
                           >
-                            <p className={styles.addCausaConsequencia}>
-                              <img src={Add} className={styles.addMore} />
+                            <button className={styles.addCausaConsequencia}>
+                              <PlusOutlined size='13px' />
                               Adicionar mais uma consequência
-                            </p>
+                            </button>
                           </span>
                         )}
                     </div>
