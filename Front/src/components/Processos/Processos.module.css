@@ -17,6 +17,11 @@
   padding-left: 3.625rem;
 }
 
+.pageTitle {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .openModal {
   width: 14rem;
   height: 3rem;
