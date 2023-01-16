@@ -90,6 +90,9 @@ export function Eventos({ title }) {
   const handleCloseModal = () => {
     setOpenModal(false);
     setError("");
+
+    setConsequenciaList([{ consequencia: "" }])
+    setCausaList([{ causa: "" }])
   };
   const handleCloseModalEdit = () => {
     setOpenModalEdit(false);
@@ -203,7 +206,7 @@ export function Eventos({ title }) {
   const [causaList, setCausaList] = useState([{ causa: "" }]);
 
   const [consequenciaList, setConsequenciaList] = useState([
-    { consequencia: "" },
+    { consequencia: "" }
   ]);
 
   const handleClickCausa = () => {
@@ -330,15 +333,12 @@ export function Eventos({ title }) {
                       />
                       {consequenciaList.length - 1 === index &&
                         consequenciaList.length < 3 && (
-                          <span
-                            id="addConsequencia"
+                          <button 
                             onClick={handleClickConsequencia}
-                          >
-                            <button className={styles.addCausaConsequencia}>
-                              <PlusOutlined size='13px' />
-                              Adicionar mais uma consequência
-                            </button>
-                          </span>
+                            className={styles.addCausaConsequencia}>
+                            <PlusOutlined size='13px' />
+                            Adicionar mais uma consequência
+                          </button>
                         )}
                     </div>
                   ))}
