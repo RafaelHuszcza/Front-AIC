@@ -250,9 +250,7 @@ export function Processos({ title }) {
     <>
       <Modal open={openModal} onClose={handleCloseModal}>
         <Box className={styles.modal} sx={{ ...styleModal }}>
-          <h2 className={styles.modalHeader}>
-            Adicionar Processos
-          </h2>
+          <h2 className={styles.modalHeader}>Adicionar Processos</h2>
           <form
             className={styles.formModal}
             id="addProcesso"
@@ -272,9 +270,9 @@ export function Processos({ title }) {
                 />
               </div>
               <div className={styles.container}>
-                <label
-                  className={styles.seletorFirstHeader}
-                >{`Macroprocesso`}</label>
+                <label className={styles.seletorFirstHeader}>
+                  Macroprocesso
+                </label>
                 <select
                   name="macroprocesso"
                   id="macroprocesso"

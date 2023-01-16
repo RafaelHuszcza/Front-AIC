@@ -3,15 +3,18 @@ import React, { useRef, useEffect, useState } from "react";
 import { Modal, Box } from "@mui/material";
 
 import { TableFooter } from "../Table/TableFooter/TableFooter";
-import { CloseOutlined, DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  CloseOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import * as yup from "yup";
 import { ValidationError } from "yup";
 import { formatDate } from "../../helpers/dateFormatter";
 import { DeleteBox } from "../DeleteBox/DeleteBox";
 
 export function Eventos({ title }) {
-  const MAX_CAUSA_CONSEQUENCIA_AMMOUNT = 3;
-
   const formRef = useRef();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,8 +34,8 @@ export function Eventos({ title }) {
       : []
   );
   const [atividades, setAtividades] = useState(
-    localStorage.getItem("@aic2:Eventos") != undefined
-      ? JSON.parse(localStorage.getItem("@aic2:Eventos"))
+    localStorage.getItem("@aic2:Atividades") != undefined
+      ? JSON.parse(localStorage.getItem("@aic2:Atividades"))
       : []
   );
 
@@ -91,8 +94,8 @@ export function Eventos({ title }) {
     setOpenModal(false);
     setError("");
 
-    setConsequenciaList([{ consequencia: "" }])
-    setCausaList([{ causa: "" }])
+    setConsequenciaList([{ consequencia: "" }]);
+    setCausaList([{ causa: "" }]);
   };
   const handleCloseModalEdit = () => {
     setOpenModalEdit(false);
@@ -112,7 +115,7 @@ export function Eventos({ title }) {
       const schema = yup.object().shape({
         atividade: yup
           .string()
-          .required("A atividade deve conter uma atividade vinculado"),
+          .required("A Evento deve conter uma atividade vinculado"),
         name: yup.string().required("A atividade deve conter um nome"),
       });
 
@@ -121,17 +124,17 @@ export function Eventos({ title }) {
       inputValues["id"] = id;
       inputValues["createdAt"] = new Date();
       let tempIdAtividade = inputValues["atividade"];
-      for (let i in processos) {
-        if (processos[i].id == tempIdProcesses) {
-          let processoInput = processos[i];
-          inputValues["processo"] = processoInput;
+      for (let i in atividades) {
+        if (atividades[i].id == tempIdAtividade) {
+          inputValues["atividade"] = atividades[i];
         }
       }
       setId(Date.now());
       setError("");
-      let atividades = atvs != null ? [...atvs, inputValues] : [inputValues];
-      localStorage.setItem("@aic2:Atividades", JSON.stringify(atividades));
-      setChangeAtv(!changeAtv);
+      let eventosToSet =
+        eventos != null ? [...eventos, inputValues] : [inputValues];
+      localStorage.setItem("@aic2:Eventos", JSON.stringify(eventosToSet));
+      setChangeEventos(!changeEventos);
       handleCloseModal();
     } catch (err) {
       if (err instanceof ValidationError) {
@@ -142,10 +145,11 @@ export function Eventos({ title }) {
       }
     }
   };
+
   const onSubmitEdit = async (e) => {
     e.preventDefault();
 
-    const inputValues = [...formRef2.current.elements].reduce(
+    const inputValues = [...formRef.current.elements].reduce(
       (total, { name, value }) => {
         if (name) return { ...total, [name]: value };
         return total;
@@ -155,40 +159,38 @@ export function Eventos({ title }) {
 
     try {
       const schema = yup.object().shape({
-        processo: yup
+        atividade: yup
           .string()
-          .required("A atividade deve conter um processo vinculado"),
-        name: yup.string().required("A Macroprocesso deve conter um nome"),
+          .required("o Evento deve conter uma atividade vinculado"),
+        name: yup.string().required("A Evento deve conter um nome"),
       });
 
       await schema.validate(inputValues);
+      let editing = { ...eventoToEdit };
 
-      let editing = { ...atvToEdit };
+      for (let i in inputValues) {
+        editing[i] = inputValues[i];
+      }
 
-      editing.name = inputValues["name"];
-
-      let tempIdProcesses = inputValues["processo"];
-      for (let i in processos) {
-        if (processos[i].id == tempIdProcesses) {
-          let processoInput = processos[i];
-
-          inputValues["processo"] = processoInput;
+      let tempIdAtividades = inputValues["atividade"];
+      for (let i in atividades) {
+        if (atividades[i].id == tempIdAtividades) {
+          inputValues["atividade"] = atividades[i];
         }
       }
 
-      editing.processo = inputValues["processo"];
+      editing.atividade = inputValues["atividade"];
       editing["editedAt"] = new Date();
       setError("");
 
-      let newAtvs = [...atvs];
-      for (let i in newAtvs) {
-        if (newAtvs[i].id == editing.id) {
-          newAtvs[i] = editing;
+      let newEventos = [...eventos];
+      for (let i in newEventos) {
+        if (newEventos[i].id == editing.id) {
+          newEventos[i] = editing;
         }
       }
-
-      localStorage.setItem("@aic2:Atividades", JSON.stringify(newAtvs));
-      setChangeAtv(!changeAtv);
+      localStorage.setItem("@aic2:Atividades", JSON.stringify(newEventos));
+      setChangeEventos(!changeEventos);
       handleCloseModalEdit();
     } catch (err) {
       if (err instanceof ValidationError) {
@@ -200,13 +202,14 @@ export function Eventos({ title }) {
     }
   };
 
+  const MAX_CAUSA_CONSEQUENCIA_AMMOUNT = 3;
   const [fontValue, setFontes] = useState();
   const [tipoValue, setTipos] = useState();
 
   const [causaList, setCausaList] = useState([{ causa: "" }]);
 
   const [consequenciaList, setConsequenciaList] = useState([
-    { consequencia: "" }
+    { consequencia: "" },
   ]);
 
   const handleClickCausa = () => {
@@ -223,7 +226,7 @@ export function Eventos({ title }) {
         <Box className={styles.modal} sx={{ ...styleModal }}>
           <h2 className={styles.modalHeader}>Adicionar Evento</h2>
           <form id="addEventos" onSubmit={onSubmit} ref={formRef}>
-            <div role='row' className={styles.row}>
+            <div role="row" className={styles.row}>
               <div className={styles.leftContainer}>
                 <div className={styles.fakeCol}>
                   <h2 className={styles.seletorHeader}>Evento</h2>
@@ -231,26 +234,32 @@ export function Eventos({ title }) {
                     className={styles.defaultInput}
                     type="text"
                     autoComplete="off"
-                    id="Evento"
+                    id="name"
+                    name="name"
                     placeholder="Informe o nome do evento"
                   />
                 </div>
                 <div className={styles.fakeCol}>
                   <h2 className={styles.seletorHeader}>Atividade</h2>
                   <select
-                    value={fontValue}
-                    onChange={(e) => setFontes(e.target.value)}
+                    name="atividade"
+                    id="atividade"
                     className={styles.seletor}
-                    required
                   >
                     <option
                       className={styles.seletorLabel}
-                      disabled
-                      selected
                       value=""
+                      disable="disable"
+                      hidden
                     >
-                      Selecione a atividade relacionada
+                      Selecione a Atividade relacionada
                     </option>
+
+                    {atividades.map((atividade) => (
+                      <option key={atividade.id} value={atividade.id}>
+                        {atividade.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -270,9 +279,13 @@ export function Eventos({ title }) {
                       />
                       {causaList.length - 1 === index &&
                         causaList.length < MAX_CAUSA_CONSEQUENCIA_AMMOUNT && (
-                          <button id="addCausa" onClick={handleClickCausa} className={styles.btnAddCausa}>
+                          <button
+                            id="addCausa"
+                            onClick={handleClickCausa}
+                            className={styles.btnAddCausa}
+                          >
                             <button className={styles.addCausaConsequencia}>
-                              <PlusOutlined size='13px' />
+                              <PlusOutlined size="13px" />
                               Adicionar mais uma causa
                             </button>
                           </button>
@@ -333,10 +346,11 @@ export function Eventos({ title }) {
                       />
                       {consequenciaList.length - 1 === index &&
                         consequenciaList.length < 3 && (
-                          <button 
+                          <button
                             onClick={handleClickConsequencia}
-                            className={styles.addCausaConsequencia}>
-                            <PlusOutlined size='13px' />
+                            className={styles.addCausaConsequencia}
+                          >
+                            <PlusOutlined size="13px" />
                             Adicionar mais uma consequência
                           </button>
                         )}
@@ -416,27 +430,35 @@ export function Eventos({ title }) {
                     className={styles.defaultInput}
                     type="text"
                     autoComplete="off"
-                    id="Evento"
+                    id="name"
+                    name="name"
                     placeholder="Informe o nome do evento"
+                    defaultValue={eventoToEdit?.name}
                   />
                 </div>
 
                 <div className={styles.fakeCol}>
-                  <p>{`Atividade`}</p>
+                  <h2 className={styles.seletorHeader}>Atividade</h2>
                   <select
-                    value={fontValue}
-                    onChange={(e) => setFontes(e.target.value)}
+                    name="atividade"
+                    id="atividade"
                     className={styles.seletor}
-                    required
+                    defaultValue={eventoToEdit?.atividade?.id}
                   >
                     <option
                       className={styles.seletorLabel}
-                      disabled
-                      selected
                       value=""
+                      disable="disable"
+                      hidden
                     >
-                      Selecione a atividade relacionada
+                      Selecione a Atividade relacionada
                     </option>
+
+                    {atividades.map((atividade) => (
+                      <option key={atividade.id} value={atividade.id}>
+                        {atividade.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -458,7 +480,7 @@ export function Eventos({ title }) {
                         causaList.length < MAX_CAUSA_CONSEQUENCIA_AMMOUNT && (
                           <span id="addCausa" onClick={handleClickCausa}>
                             <button className={styles.addCausaConsequencia}>
-                              <PlusOutlined size='13px' />
+                              <PlusOutlined size="13px" />
                               Adicionar mais uma causa
                             </button>
                           </span>
@@ -518,13 +540,14 @@ export function Eventos({ title }) {
                         required
                       />
                       {consequenciaList.length - 1 === index &&
-                        consequenciaList.length < MAX_CAUSA_CONSEQUENCIA_AMMOUNT && (
+                        consequenciaList.length <
+                          MAX_CAUSA_CONSEQUENCIA_AMMOUNT && (
                           <span
                             id="addConsequencia"
                             onClick={handleClickConsequencia}
                           >
                             <button className={styles.addCausaConsequencia}>
-                              <PlusOutlined size='13px' />
+                              <PlusOutlined size="13px" />
                               Adicionar mais uma consequência
                             </button>
                           </span>
@@ -588,7 +611,7 @@ export function Eventos({ title }) {
       </Modal>
 
       <div className={styles.topInformations}>
-      <h1 className={styles.textEventos}>{title}</h1>
+        <h1 className={styles.textEventos}>{title}</h1>
         <button className={styles.openModal} onClick={() => setOpenModal(true)}>
           Adicionar Eventos
         </button>
