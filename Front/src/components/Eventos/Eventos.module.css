@@ -151,9 +151,12 @@ td {
 
 .row {
   display: flex;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+  height: 450px;
+  overflow-y: auto;
 }
 
 .leftContainer {
