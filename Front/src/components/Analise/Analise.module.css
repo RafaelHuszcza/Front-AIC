@@ -27,89 +27,6 @@
   border-radius: 5px;
 }
 
-.list {
-  display: flex;
-  flex-direction: column;
-  height: calc(100% - 167px);
-  width: 100%;
-  padding: 1rem;
-}
-.tableDiv {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: calc(92% - 1rem);
-}
-
-.table {
-  border-collapse: collapse;
-
-  border-radius: 4px;
-  width: 100%;
-  height: 87.5%;
-}
-
-table,
-th,
-td {
-  border: 1px solid var(--grey-200);
-}
-
-.tbHeader th {
-  text-align: center;
-  width: 35%;
-  color: var(--white);
-  background-color: var(--orange-500);
-}
-.tbHeader .date {
-  text-align: center;
-  width: 20%;
-  color: var(--white);
-  background-color: var(--orange-500);
-}
-.tbHeader .processes {
-  text-align: center;
-  width: 35%;
-  color: var(--white);
-  background-color: var(--orange-500);
-}
-.tbHeader .option {
-  text-align: center;
-  width: 20%;
-  color: var(--white);
-  background-color: var(--orange-500);
-}
-.tbHeader {
-  height: 12.5%;
-}
-
-.table td {
-  text-align: center;
-  background-color: var(--white);
-}
-
-.table tr {
-  height: 12.5%;
-}
-
-.closeModal {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.loadingTable {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-}
-.loadingIcon {
-  width: 5rem;
-  height: 5rem;
-}
-
 .buttons {
   width: 100%;
   height: 8%;
@@ -260,7 +177,6 @@ select:invalid {
   background: var(--white);
   border: 1px solid var(--white-300);
   border-radius: 4px;
-
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -269,50 +185,8 @@ select:invalid {
   margin-bottom: 10px;
 }
 
-.addCausaConsequencia {
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 14px;
-  letter-spacing: 0.15px;
-  color: #666666;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-
-  background: transparent;
-  border: 0;
-}
-
-.seletorHeaderTipo {
-  margin-bottom: 0.5rem;
-  margin-top: 3.781rem;
-}
-
-.btnAddCausa {
-  background: transparent;
-  border: 0;
-}
-
-.minContent {
-  width: min-content;
-}
-
-.buttonAddBlock {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--orange-500);
-  height: 44px;
-  width: 344px;
-  border-radius: 3px;
-  color: var(--white);
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
-  border: none;
-}
-.blockDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.labelSpan {
+  height: 3rem;
+  width: 5rem;
+  border: 2px solid var(--black);
 }

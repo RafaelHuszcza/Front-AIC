@@ -4,6 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { Analise } from "./components/Analise/Analise";
 import { Atividades } from "./components/Atividades/Atividades";
 import { Eventos } from "./components/Eventos/Eventos";
 import { Macroprocessos } from "./components/Macroprocessos/Macroprocessos";
@@ -37,6 +38,10 @@ export function AppRoutes() {
         <Route
           path="/eventos"
           element={<LayoutPage Component={Eventos} title={"Eventos"} />}
+        />
+        <Route
+          path="/analise"
+          element={<LayoutPage Component={Analise} title={"Análise"} />}
         />
         <Route
           path="*"
