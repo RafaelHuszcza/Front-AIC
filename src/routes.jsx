@@ -18,37 +18,37 @@ export function AppRoutes() {
     <Router>
       <Routes>
         <Route
-          path="/"
+          path="/Front-AIC"
           element={<LayoutPage Component={None} title={"Home"} />}
         />
         <Route
-          path="/macro-processos"
+          path="/Front-AIC/macro-processos"
           element={
             <LayoutPage Component={Macroprocessos} title={"Macroprocessos"} />
           }
         />
         <Route
-          path="/processos"
+          path="/Front-AIC/processos"
           element={<LayoutPage Component={Processos} title={"Processos"} />}
         />
         <Route
-          path="/atividades"
+          path="/Front-AIC/atividades"
           element={<LayoutPage Component={Atividades} title={"Atividades"} />}
         />
         <Route
-          path="/eventos"
+          path="/Front-AIC/eventos"
           element={<LayoutPage Component={Eventos} title={"Eventos"} />}
         />
         <Route
-          path="/analise"
+          path="/Front-AIC/analise"
           element={<LayoutPage Component={Analise} title={"Análise"} />}
         />
-        <Route
+        {/* <Route
           path="*"
           element={
             <LayoutPage Component={None} title={"Página Não Encontrada"} />
           }
-        />
+        /> */}
       </Routes>
     </Router>
   );

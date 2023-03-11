@@ -20,7 +20,7 @@ export function NavBar() {
         <span
           className={styles.linkText}
           onClick={() => {
-            navigate("/macro-processos");
+            navigate("/Front-AIC/macro-processos");
           }}
         >
           Macroprocessos
@@ -29,7 +29,7 @@ export function NavBar() {
         <span
           className={styles.linkText}
           onClick={() => {
-            navigate("/processos");
+            navigate("/Front-AIC/processos");
           }}
         >
           Processos
@@ -38,7 +38,7 @@ export function NavBar() {
         <span
           className={styles.linkText}
           onClick={() => {
-            navigate("/atividades");
+            navigate("/Front-AIC/atividades");
           }}
         >
           Atividades
@@ -47,7 +47,7 @@ export function NavBar() {
         <span
           className={styles.linkText}
           onClick={() => {
-            navigate("/eventos");
+            navigate("/Front-AIC/eventos");
           }}
         >
           Eventos
@@ -55,7 +55,7 @@ export function NavBar() {
         <span
           className={styles.linkText}
           onClick={() => {
-            navigate("/analise");
+            navigate("/Front-AIC/analise");
           }}
         >
           Analise

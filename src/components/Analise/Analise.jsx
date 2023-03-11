@@ -152,121 +152,6 @@ export function Analise({ title }) {
                     </div>
                   </div>
                 ))}
-
-                {/* {causesAndConsequencesArray.map((array, index) => (
-                <div className={styles.blockDiv} key={index}>
-                  <div className={styles.defaultContainer}>
-                    <div className={styles.fakeCol}>
-                      <h2 className={styles.seletorHeader}>Causas</h2>
-                      <div key={index} className={styles.minContent}>
-                        <input
-                          className={styles.defaultInput}
-                          type="text"
-                          name="cause"
-                          placeholder="Informe a causa do evento"
-                          onChange={(e) => handleChangeSameValue(e, index)}
-                        />
-                      </div>
-                    </div>
-
-                    <div className={styles.fakeCol}>
-                      <label className={styles.seletorHeader}>{`Fontes`}</label>
-                      <div>
-                        <select
-                          onChange={(e) => handleChangeSameValue(e, index)}
-                          className={styles.seletor}
-                          name="type"
-                          defaultValue={""}
-                        >
-                          <option
-                            className={styles.seletorLabel}
-                            value=""
-                            disable="disable"
-                            hidden
-                          >
-                            Selecione a fonte relacionada
-                          </option>
-                          <option value="Pessoas">Pessoas</option>
-                          <option value="Processos">Processos</option>
-                          <option value="Sistemas">Sistemas</option>
-                          <option value="Infraestrutura">
-                            Infraestrutura Física
-                          </option>
-                          <option value="Organizacional">
-                            Estrutura Organizacional
-                          </option>
-                          <option value="Tecnologia">Tecnologia</option>
-                          <option value="Eventos Externos">
-                            Eventos Externos
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className={styles.defaultContainer}>
-                    <div className={styles.fakeCol}>
-                      <label className={styles.seletorHeader}>
-                        Consequências
-                      </label>
-
-                      <div>
-                        <input
-                          name="consequence"
-                          className={styles.defaultInput}
-                          type="text"
-                          placeholder="Informe as consequências o evento"
-                          onChange={(e) => handleChangeSameValue(e, index)}
-                        />
-                      </div>
-                    </div>
-                    <div className={styles.fakeCol}>
-                      <label className={styles.seletorHeader}>{`Tipos`}</label>
-                      <div>
-                        <select
-                          className={styles.seletor}
-                          name="source"
-                          onChange={(e) => handleChangeSameValue(e, index)}
-                        >
-                          <option
-                            className={styles.seletorLabel}
-                            value=""
-                            disable="disable"
-                            hidden
-                          >
-                            Selecione o tipo relacionado
-                          </option>
-                          <option value="Estrategico">
-                            1-Risco Estrategico
-                          </option>
-                          <option value="Operacional">
-                            2-Risco Operacional
-                          </option>
-                          <option value="Conformidades">
-                            3-Risco de Conformidades
-                          </option>
-                          <option value="Financeiro">
-                            4-Risco Financeiro/Orçamentário
-                          </option>
-                          <option value="Imagem">5-Risco de Imagem</option>
-                          <option value="Integridade">
-                            6-Risco de Integridade
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <DeleteOutlined
-                    style={{
-                      cursor: "pointer",
-                      color: "black",
-                      fontSize: "2rem",
-                      marginLeft: "2rem",
-                    }}
-                    onClick={(e) => handleDeleteItemOfArray(e, index)}
-                  />
-                </div>
-              ))} */}
               </div>
             </form>
             {error ? <div className={styles.error}>{error}</div> : null}
@@ -306,12 +191,13 @@ export function Analise({ title }) {
             >
               Selecione o Evento para analisar
             </option>
-
-            {eventos.map((evento) => (
-              <option key={evento.id} value={evento.id}>
-                {evento.name}
-              </option>
-            ))}
+            {eventos != null
+              ? eventos.map((evento) => (
+                  <option key={evento.id} value={evento.id}>
+                    {evento.name}
+                  </option>
+                ))
+              : null}
           </select>
           <button
             className={styles.openModal}
