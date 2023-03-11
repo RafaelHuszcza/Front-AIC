@@ -11,7 +11,7 @@ export function NavBar() {
   };
   return (
     <nav className={open ? styles.sideNav : styles.sideNavCollapsed}>
-      <div className={open ? styles.divBtn: styles.divBtnCollapsed}>
+      <div className={open ? styles.divBtn : styles.divBtnCollapsed}>
         <button className={styles.btn} onClick={toggleOpen}>
           <RxHamburgerMenu />
         </button>
@@ -51,6 +51,14 @@ export function NavBar() {
           }}
         >
           Eventos
+        </span>
+        <span
+          className={styles.linkText}
+          onClick={() => {
+            navigate("/analise");
+          }}
+        >
+          Analise
         </span>
       </div>
     </nav>

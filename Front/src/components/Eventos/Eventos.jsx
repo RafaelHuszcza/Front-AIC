@@ -25,6 +25,9 @@ export function Eventos({ title }) {
   const [isActionBoxOpen, setIsActionBoxOpen] = useState(false);
   const [eventoToDeleteId, setEventoToDeleteId] = useState(null);
   const [eventoToEdit, setEventoToEdit] = useState({});
+  const [causesAndConsequencesArray, setCausesAndConsequencesArray] = useState(
+    []
+  );
 
   const [id, setId] = useState(Date.now());
 
@@ -58,7 +61,6 @@ export function Eventos({ title }) {
         newEventos.splice(i, 1);
       }
     }
-
     localStorage.setItem("@aic2:Eventos", JSON.stringify(newEventos));
     setCurrentPage(1);
     setChangeEventos(!changeEventos);
@@ -90,17 +92,18 @@ export function Eventos({ title }) {
       }
     }
   };
+
   const handleCloseModal = () => {
     setOpenModal(false);
+    setCausesAndConsequencesArray([]);
     setError("");
-
-    setConsequenciaList([{ consequencia: "" }]);
-    setCausaList([{ causa: "" }]);
   };
   const handleCloseModalEdit = () => {
     setOpenModalEdit(false);
+    setCausesAndConsequencesArray([]);
     setError("");
   };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const inputValues = [...formRef.current.elements].reduce(
@@ -110,13 +113,36 @@ export function Eventos({ title }) {
       },
       {}
     );
+    delete inputValues["cause"];
+    delete inputValues["type"];
+    delete inputValues["consequence"];
+    delete inputValues["source"];
 
+    inputValues["causesAndConsequences"] = causesAndConsequencesArray;
     try {
       const schema = yup.object().shape({
         atividade: yup
           .string()
           .required("A Evento deve conter uma atividade vinculado"),
         name: yup.string().required("A atividade deve conter um nome"),
+        causesAndConsequences: yup.array().of(
+          yup.object().shape({
+            cause: yup.string().required("É necessário colocar uma causa"),
+            source: yup
+              .string()
+              .required("É necessário selecionar a fonte da causa"),
+            consequence: yup
+              .string()
+              .required(
+                "É necessário selecionar uma consequencia gerada pela causa"
+              ),
+            type: yup
+              .string()
+              .required(
+                "É necessário selecionar um tipo associado a consequência"
+              ),
+          })
+        ),
       });
 
       await schema.validate(inputValues);
@@ -134,6 +160,7 @@ export function Eventos({ title }) {
       let eventosToSet =
         eventos != null ? [...eventos, inputValues] : [inputValues];
       localStorage.setItem("@aic2:Eventos", JSON.stringify(eventosToSet));
+      console.log(eventosToSet);
       setChangeEventos(!changeEventos);
       handleCloseModal();
     } catch (err) {
@@ -148,7 +175,6 @@ export function Eventos({ title }) {
 
   const onSubmitEdit = async (e) => {
     e.preventDefault();
-
     const inputValues = [...formRef.current.elements].reduce(
       (total, { name, value }) => {
         if (name) return { ...total, [name]: value };
@@ -157,12 +183,36 @@ export function Eventos({ title }) {
       {}
     );
 
+    delete inputValues["cause"];
+    delete inputValues["type"];
+    delete inputValues["consequence"];
+    delete inputValues["source"];
+    inputValues["causesAndConsequences"] = causesAndConsequencesArray;
+
     try {
       const schema = yup.object().shape({
         atividade: yup
           .string()
-          .required("o Evento deve conter uma atividade vinculado"),
-        name: yup.string().required("A Evento deve conter um nome"),
+          .required("A Evento deve conter uma atividade vinculado"),
+        name: yup.string().required("A atividade deve conter um nome"),
+        causesAndConsequences: yup.array().of(
+          yup.object().shape({
+            cause: yup.string().required("É necessário colocar uma causa"),
+            source: yup
+              .string()
+              .required("É necessário selecionar a fonte da causa"),
+            consequence: yup
+              .string()
+              .required(
+                "É necessário selecionar uma consequencia gerada pela causa"
+              ),
+            type: yup
+              .string()
+              .required(
+                "É necessário selecionar um tipo associado a consequência"
+              ),
+          })
+        ),
       });
 
       await schema.validate(inputValues);
@@ -189,7 +239,7 @@ export function Eventos({ title }) {
           newEventos[i] = editing;
         }
       }
-      localStorage.setItem("@aic2:Atividades", JSON.stringify(newEventos));
+      localStorage.setItem("@aic2:Eventos", JSON.stringify(newEventos));
       setChangeEventos(!changeEventos);
       handleCloseModalEdit();
     } catch (err) {
@@ -202,34 +252,32 @@ export function Eventos({ title }) {
     }
   };
 
-  const MAX_CAUSA_CONSEQUENCIA_AMMOUNT = 3;
-  const [fontValue, setFontes] = useState();
-  const [tipoValue, setTipos] = useState();
-
-  const [causaList, setCausaList] = useState([{ causa: "" }]);
-
-  const [consequenciaList, setConsequenciaList] = useState([
-    { consequencia: "" },
-  ]);
-
-  const handleClickCausa = () => {
-    setCausaList([...causaList, { causa: "" }]);
+  const handleAddCausesAndConsequencesArray = () => {
+    setCausesAndConsequencesArray([
+      ...causesAndConsequencesArray,
+      { cause: "", source: "", consequence: "", type: "" },
+    ]);
+  };
+  const handleDeleteItemOfArray = (e, position) => {
+    setCausesAndConsequencesArray([
+      ...causesAndConsequencesArray.filter((_, index) => index !== position),
+    ]);
   };
 
-  const handleClickConsequencia = () => {
-    setConsequenciaList([...consequenciaList, { consequencia: "" }]);
+  const handleChangeSameValue = (e, index) => {
+    causesAndConsequencesArray[index][e.target.name] = e.target.value;
+    setCausesAndConsequencesArray([...causesAndConsequencesArray]);
   };
-
   return (
     <main className={styles.mainEventos}>
       <Modal open={openModal} onClose={handleCloseModal}>
         <Box className={styles.modal} sx={{ ...styleModal }}>
           <h2 className={styles.modalHeader}>Adicionar Evento</h2>
           <form id="addEventos" onSubmit={onSubmit} ref={formRef}>
-            <div role="row" className={styles.row}>
+            <div className={styles.row}>
               <div className={styles.leftContainer}>
                 <div className={styles.fakeCol}>
-                  <h2 className={styles.seletorHeader}>Evento</h2>
+                  <label>Evento</label>
                   <input
                     className={styles.defaultInput}
                     type="text"
@@ -239,12 +287,14 @@ export function Eventos({ title }) {
                     placeholder="Informe o nome do evento"
                   />
                 </div>
+
                 <div className={styles.fakeCol}>
-                  <h2 className={styles.seletorHeader}>Atividade</h2>
+                  <label>Atividade</label>
                   <select
                     name="atividade"
                     id="atividade"
                     className={styles.seletor}
+                    defaultValue=""
                   >
                     <option
                       className={styles.seletorLabel}
@@ -263,135 +313,128 @@ export function Eventos({ title }) {
                   </select>
                 </div>
               </div>
+              <button
+                className={styles.buttonAddBlock}
+                type="button"
+                onClick={() => handleAddCausesAndConsequencesArray()}
+              >
+                Adicionar Bloco
+              </button>
 
-              <div className={styles.defaultContainer}>
-                <div className={styles.fakeCol}>
-                  <h2 className={styles.seletorHeader}>Causas</h2>
-                  {causaList.map((singleCausa, index) => (
-                    <div key={index} className={styles.minContent}>
-                      <input
-                        className={styles.defaultInput}
-                        type="text"
-                        autoComplete="off"
-                        id="Causa"
-                        placeholder="Informe a causa do evento"
-                        required
-                      />
-                      {causaList.length - 1 === index &&
-                        causaList.length < MAX_CAUSA_CONSEQUENCIA_AMMOUNT && (
-                          <button
-                            id="addCausa"
-                            onClick={handleClickCausa}
-                            className={styles.btnAddCausa}
-                          >
-                            <button className={styles.addCausaConsequencia}>
-                              <PlusOutlined size="13px" />
-                              Adicionar mais uma causa
-                            </button>
-                          </button>
-                        )}
+              {causesAndConsequencesArray.map((array, index) => (
+                <div className={styles.blockDiv} key={index}>
+                  <div className={styles.defaultContainer}>
+                    <div className={styles.fakeCol}>
+                      <h2 className={styles.seletorHeader}>Causas</h2>
+                      <div key={index} className={styles.minContent}>
+                        <input
+                          className={styles.defaultInput}
+                          type="text"
+                          name="cause"
+                          placeholder="Informe a causa do evento"
+                          onChange={(e) => handleChangeSameValue(e, index)}
+                        />
+                      </div>
                     </div>
-                  ))}
-                </div>
 
-                <div className={styles.fakeCol}>
-                  <p className={styles.seletorHeader}>{`Fontes`}</p>
-                  {causaList.map((singleCausa, index) => (
-                    <div key={index}>
-                      <select
-                        value={fontValue}
-                        onChange={(e) => setFontes(e.target.value)}
-                        className={styles.seletor}
-                        required
-                      >
-                        <option
-                          className={styles.seletorLabel}
-                          disabled
-                          selected
-                          value=""
+                    <div className={styles.fakeCol}>
+                      <label className={styles.seletorHeader}>{`Fontes`}</label>
+                      <div>
+                        <select
+                          onChange={(e) => handleChangeSameValue(e, index)}
+                          className={styles.seletor}
+                          name="type"
+                          defaultValue={""}
                         >
-                          Selecione a fonte relacionada
-                        </option>
-                        <option value="Pessoas">Pessoas</option>
-                        <option value="Processos">Processos</option>
-                        <option value="Sistemas">Sistemas</option>
-                        <option value="Infraestrutura">
-                          Infraestrutura Física
-                        </option>
-                        <option value="Organizacional">
-                          Estrutura Organizacional
-                        </option>
-                        <option value="Tecnologia">Tecnologia</option>
-                        <option value="Eventos Externos">
-                          Eventos Externos
-                        </option>
-                      </select>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className={styles.defaultContainer}>
-                <div className={styles.fakeCol}>
-                  <p className={styles.seletorHeader}>{`Consequências`}</p>
-                  {consequenciaList.map((singleConsequencia, index) => (
-                    <div key={index}>
-                      <input
-                        className={styles.defaultInput}
-                        type="text"
-                        autoComplete="off"
-                        id="Consequencia"
-                        placeholder="Informe as consequências o evento"
-                        required
-                      />
-                      {consequenciaList.length - 1 === index &&
-                        consequenciaList.length < 3 && (
-                          <button
-                            onClick={handleClickConsequencia}
-                            className={styles.addCausaConsequencia}
+                          <option
+                            className={styles.seletorLabel}
+                            value=""
+                            disable="disable"
+                            hidden
                           >
-                            <PlusOutlined size="13px" />
-                            Adicionar mais uma consequência
-                          </button>
-                        )}
+                            Selecione a fonte relacionada
+                          </option>
+                          <option value="Pessoas">Pessoas</option>
+                          <option value="Processos">Processos</option>
+                          <option value="Sistemas">Sistemas</option>
+                          <option value="Infraestrutura">
+                            Infraestrutura Física
+                          </option>
+                          <option value="Organizacional">
+                            Estrutura Organizacional
+                          </option>
+                          <option value="Tecnologia">Tecnologia</option>
+                          <option value="Eventos Externos">
+                            Eventos Externos
+                          </option>
+                        </select>
+                      </div>
                     </div>
-                  ))}
-                </div>
-                <div className={styles.fakeCol}>
-                  <p className={styles.seletorHeader}>{`Tipos`}</p>
-                  {consequenciaList.map((singleConsequencia, index) => (
-                    <div key={index}>
-                      <select
-                        value={tipoValue}
-                        onChange={(e) => setTipos(e.target.value)}
-                        className={styles.seletor}
-                        required
-                      >
-                        <option
-                          value=""
-                          className={styles.seletorLabel}
-                          disabled
-                          selected
+                  </div>
+
+                  <div className={styles.defaultContainer}>
+                    <div className={styles.fakeCol}>
+                      <label className={styles.seletorHeader}>
+                        Consequências
+                      </label>
+
+                      <div>
+                        <input
+                          name="consequence"
+                          className={styles.defaultInput}
+                          type="text"
+                          placeholder="Informe as consequências o evento"
+                          onChange={(e) => handleChangeSameValue(e, index)}
+                        />
+                      </div>
+                    </div>
+                    <div className={styles.fakeCol}>
+                      <label className={styles.seletorHeader}>{`Tipos`}</label>
+                      <div>
+                        <select
+                          className={styles.seletor}
+                          name="source"
+                          onChange={(e) => handleChangeSameValue(e, index)}
                         >
-                          Selecione o tipo relacionado
-                        </option>
-                        <option value="Estrategico">1-Risco Estrategico</option>
-                        <option value="Operacional">2-Risco Operacional</option>
-                        <option value="Conformidades">
-                          3-Risco de Conformidades
-                        </option>
-                        <option value="Financeiro">
-                          4-Risco Financeiro/Orçamentário
-                        </option>
-                        <option value="Imagem">5-Risco de Imagem</option>
-                        <option value="Integridade">
-                          6-Risco de Integridade
-                        </option>
-                      </select>
+                          <option
+                            className={styles.seletorLabel}
+                            value=""
+                            disable="disable"
+                            hidden
+                          >
+                            Selecione o tipo relacionado
+                          </option>
+                          <option value="Estrategico">
+                            1-Risco Estrategico
+                          </option>
+                          <option value="Operacional">
+                            2-Risco Operacional
+                          </option>
+                          <option value="Conformidades">
+                            3-Risco de Conformidades
+                          </option>
+                          <option value="Financeiro">
+                            4-Risco Financeiro/Orçamentário
+                          </option>
+                          <option value="Imagem">5-Risco de Imagem</option>
+                          <option value="Integridade">
+                            6-Risco de Integridade
+                          </option>
+                        </select>
+                      </div>
                     </div>
-                  ))}
+                  </div>
+                  <DeleteOutlined
+                    style={{
+                      cursor: "pointer",
+                      color: "black",
+                      fontSize: "2rem",
+                      marginLeft: "2rem",
+                    }}
+                    onClick={(e) => handleDeleteItemOfArray(e, index)}
+                  />
                 </div>
-              </div>
+              ))}
             </div>
           </form>
           {error ? <div className={styles.error}>{error}</div> : null}
@@ -413,19 +456,12 @@ export function Eventos({ title }) {
       </Modal>
       <Modal open={openModalEdit} onClose={handleCloseModalEdit}>
         <Box className={styles.modal} sx={{ ...styleModal }}>
-          <div className={styles.modalHeader}>
-            <p>Editar Eventos</p>
-          </div>
-          <form
-            className={styles.formModal}
-            id="editEventos"
-            onSubmit={onSubmitEdit}
-            ref={formRef}
-          >
+          <h2 className={styles.modalHeader}>Editar Evento</h2>
+          <form id="editEventos" onSubmit={onSubmitEdit} ref={formRef}>
             <div className={styles.row}>
               <div className={styles.leftContainer}>
                 <div className={styles.fakeCol}>
-                  <p>{`Evento`}</p>
+                  <label>Evento</label>
                   <input
                     className={styles.defaultInput}
                     type="text"
@@ -438,19 +474,14 @@ export function Eventos({ title }) {
                 </div>
 
                 <div className={styles.fakeCol}>
-                  <h2 className={styles.seletorHeader}>Atividade</h2>
+                  <label>Atividade</label>
                   <select
                     name="atividade"
                     id="atividade"
                     className={styles.seletor}
                     defaultValue={eventoToEdit?.atividade?.id}
                   >
-                    <option
-                      className={styles.seletorLabel}
-                      value=""
-                      disable="disable"
-                      hidden
-                    >
+                    <option value="" disable="disable" hidden>
                       Selecione a Atividade relacionada
                     </option>
 
@@ -462,134 +493,130 @@ export function Eventos({ title }) {
                   </select>
                 </div>
               </div>
+              <button
+                className={styles.buttonAddBlock}
+                type="button"
+                onClick={() => handleAddCausesAndConsequencesArray()}
+              >
+                Adicionar Bloco
+              </button>
 
-              <div className={styles.defaultContainer}>
-                <div className={styles.fakeCol}>
-                  <p className={styles.seletorHeader}>{`Causas`}</p>
-                  {causaList.map((singleCausa, index) => (
-                    <div key={index}>
-                      <input
-                        className={styles.defaultInput}
-                        type="text"
-                        autoComplete="off"
-                        id="Causa"
-                        placeholder="Informe a causa do evento"
-                        required
-                      />
-                      {causaList.length - 1 === index &&
-                        causaList.length < MAX_CAUSA_CONSEQUENCIA_AMMOUNT && (
-                          <span id="addCausa" onClick={handleClickCausa}>
-                            <button className={styles.addCausaConsequencia}>
-                              <PlusOutlined size="13px" />
-                              Adicionar mais uma causa
-                            </button>
-                          </span>
-                        )}
+              {causesAndConsequencesArray.map((block, index) => (
+                <div className={styles.blockDiv} key={index}>
+                  <div className={styles.defaultContainer}>
+                    <div className={styles.fakeCol}>
+                      <h2 className={styles.seletorHeader}>Causas</h2>
+                      <div key={index} className={styles.minContent}>
+                        <input
+                          className={styles.defaultInput}
+                          type="text"
+                          name="cause"
+                          placeholder="Informe a causa do evento"
+                          onChange={(e) => handleChangeSameValue(e, index)}
+                          defaultValue={block.cause}
+                        />
+                      </div>
                     </div>
-                  ))}
-                </div>
 
-                <div className={styles.fakeCol}>
-                  <p className={styles.seletorHeader}>{`Fontes`}</p>
-                  {causaList.map((singleCausa, index) => (
-                    <div key={index}>
-                      <select
-                        value={fontValue}
-                        onChange={(e) => setFontes(e.target.value)}
-                        className={styles.seletor}
-                        required
-                      >
-                        <option
-                          className={styles.seletorLabel}
-                          disabled
-                          selected
-                          value=""
+                    <div className={styles.fakeCol}>
+                      <label className={styles.seletorHeader}>{`Fontes`}</label>
+                      <div>
+                        <select
+                          onChange={(e) => handleChangeSameValue(e, index)}
+                          className={styles.seletor}
+                          name="type"
+                          defaultValue={block.type}
                         >
-                          Selecione a fonte relacionada
-                        </option>
-                        <option value="Pessoas">Pessoas</option>
-                        <option value="Processos">Processos</option>
-                        <option value="Sistemas">Sistemas</option>
-                        <option value="Infraestrutura">
-                          Infraestrutura Física
-                        </option>
-                        <option value="Organizacional">
-                          Estrutura Organizacional
-                        </option>
-                        <option value="Tecnologia">Tecnologia</option>
-                        <option value="Eventos Externos">
-                          Eventos Externos
-                        </option>
-                      </select>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className={styles.defaultContainer}>
-                <div className={styles.fakeCol}>
-                  <p className={styles.seletorHeader}>{`Consequências`}</p>
-                  {consequenciaList.map((singleConsequencia, index) => (
-                    <div key={index}>
-                      <input
-                        className={styles.defaultInput}
-                        type="text"
-                        autoComplete="off"
-                        id="Consequencia"
-                        placeholder="Informe as consequências o evento"
-                        required
-                      />
-                      {consequenciaList.length - 1 === index &&
-                        consequenciaList.length <
-                          MAX_CAUSA_CONSEQUENCIA_AMMOUNT && (
-                          <span
-                            id="addConsequencia"
-                            onClick={handleClickConsequencia}
+                          <option
+                            className={styles.seletorLabel}
+                            value=""
+                            disable="disable"
+                            hidden
                           >
-                            <button className={styles.addCausaConsequencia}>
-                              <PlusOutlined size="13px" />
-                              Adicionar mais uma consequência
-                            </button>
-                          </span>
-                        )}
+                            Selecione a fonte relacionada
+                          </option>
+                          <option value="Pessoas">Pessoas</option>
+                          <option value="Processos">Processos</option>
+                          <option value="Sistemas">Sistemas</option>
+                          <option value="Infraestrutura">
+                            Infraestrutura Física
+                          </option>
+                          <option value="Organizacional">
+                            Estrutura Organizacional
+                          </option>
+                          <option value="Tecnologia">Tecnologia</option>
+                          <option value="Eventos Externos">
+                            Eventos Externos
+                          </option>
+                        </select>
+                      </div>
                     </div>
-                  ))}
-                </div>
-                <div className={styles.fakeCol}>
-                  <p className={styles.seletorHeader}>{`Tipos`}</p>
-                  {consequenciaList.map((singleConsequencia, index) => (
-                    <div key={index}>
-                      <select
-                        value={tipoValue}
-                        onChange={(e) => setTipos(e.target.value)}
-                        className={styles.seletor}
-                        required
-                      >
-                        <option
-                          value=""
-                          className={styles.seletorLabel}
-                          disabled
-                          selected
+                  </div>
+
+                  <div className={styles.defaultContainer}>
+                    <div className={styles.fakeCol}>
+                      <label className={styles.seletorHeader}>
+                        Consequências
+                      </label>
+                      <div>
+                        <input
+                          name="consequence"
+                          className={styles.defaultInput}
+                          type="text"
+                          placeholder="Informe as consequências o evento"
+                          onChange={(e) => handleChangeSameValue(e, index)}
+                          defaultValue={block.consequence}
+                        />
+                      </div>
+                    </div>
+                    <div className={styles.fakeCol}>
+                      <label className={styles.seletorHeader}>{`Tipos`}</label>
+                      <div>
+                        <select
+                          className={styles.seletor}
+                          name="source"
+                          onChange={(e) => handleChangeSameValue(e, index)}
+                          defaultValue={block.source}
                         >
-                          Selecione o tipo relacionado
-                        </option>
-                        <option value="Estrategico">1-Risco Estrategico</option>
-                        <option value="Operacional">2-Risco Operacional</option>
-                        <option value="Conformidades">
-                          3-Risco de Conformidades
-                        </option>
-                        <option value="Financeiro">
-                          4-Risco Financeiro/Orçamentário
-                        </option>
-                        <option value="Imagem">5-Risco de Imagem</option>
-                        <option value="Integridade">
-                          6-Risco de Integridade
-                        </option>
-                      </select>
+                          <option
+                            className={styles.seletorLabel}
+                            value=""
+                            disable="disable"
+                            hidden
+                          >
+                            Selecione o tipo relacionado
+                          </option>
+                          <option value="Estrategico">
+                            1-Risco Estrategico
+                          </option>
+                          <option value="Operacional">
+                            2-Risco Operacional
+                          </option>
+                          <option value="Conformidades">
+                            3-Risco de Conformidades
+                          </option>
+                          <option value="Financeiro">
+                            4-Risco Financeiro/Orçamentário
+                          </option>
+                          <option value="Imagem">5-Risco de Imagem</option>
+                          <option value="Integridade">
+                            6-Risco de Integridade
+                          </option>
+                        </select>
+                      </div>
                     </div>
-                  ))}
+                  </div>
+                  <DeleteOutlined
+                    style={{
+                      cursor: "pointer",
+                      color: "black",
+                      fontSize: "2rem",
+                      marginLeft: "2rem",
+                    }}
+                    onClick={(e) => handleDeleteItemOfArray(e, index)}
+                  />
                 </div>
-              </div>
+              ))}
             </div>
           </form>
           {error ? <div className={styles.error}>{error}</div> : null}
@@ -645,6 +672,9 @@ export function Eventos({ title }) {
                                 className={styles.iconsGap}
                                 onClick={() => {
                                   setEventoToEdit(evento);
+                                  setCausesAndConsequencesArray(
+                                    evento.causesAndConsequences
+                                  );
                                   setOpenModalEdit(true);
                                 }}
                               />
