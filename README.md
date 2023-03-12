@@ -1,4 +1,4 @@
-# Blog Meta Team
+# Trabalho de AIC 1- Atividade de Integração Curricular
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/RafaelHuszcza/Trabalho-Si?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/RafaelHuszcza/Trabalho-Si?style=for-the-badge)
@@ -7,65 +7,53 @@
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/RafaelHuszcza/Trabalho-Si?style=for-the-badge)
 
 
-<!-- Alterar cover quando o projeto estiver 100% funcional -->
-![Cover MetaNews](https://user-images.githubusercontent.com/62501031/148819263-3e8a0c4a-d166-463a-a4b9-e1d731260f59.gif)
 
-> Website de leitura de notícias
+![Cover Front-AIC](https://user-images.githubusercontent.com/62501031/224519845-20958b6c-cb58-47c9-af85-dd5d49dcbff9.gif)
 
-O Blog Meta Team é um blog feito do zero usando React. Ele é o Trabalho Complementar 3.1 proposto na disciplina de Sistemas de Informação, ministrada pelo professor Rafael Berri. Seu design pode ser encontrado [aqui](https://www.canva.com/design/DAE0-o_Qdz8/3CIb63AvQM7X0AZgDrpg0g/view?utm_content=DAE0-o_Qdz8&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton#3)
 
-#### Tarefas principais
+> Parte 1 de um Sistema Gestão de riscos
 
-- [x] Tela principal e eventos JS;
-- [x] Tela principal que apresenta a ideia do portal de notícias ( do que o site é em poucas palavras) e exibir alguns links para notícias "quentes" atuais;
-- [x] Tela de login, sem obrigatoriedade de banco de dados (pode usar arquivos textos contendo a senha);
-- [x] Tela de apresentação de notícias (será usado um esqueleto padrão e via JavaScript as notícias são exibidas, portanto as notícias estarão em arquivos XML, TXT ou em um Banco de dados e haverá um modelo base para exibição das mesmas);
-- [ ] Tela de “Busca” onde o usuário do site poderá localizar notícias de várias maneiras diferentes, ao menos terá opção de busca por título, texto ou palavras chaves da notícia;
+O front com 5 funcionalidades é a parte 1 do que seria um sistema de gestão de riscos, tendo um design baseado no sistemas Furg é uma aplicação desenvolvida do 0, usando a ferramenta de desenvolvimento Vite e React e armazenando informações no localStorage
 
-#### Tarefas complementares
 
-- [x] Versionamento de projeto através da ferramenta GIT;
-- [x] Uso da biblioteca React com o fim de facilitar a criação de páginas;
-- [x] Entre outros.
+#### Principais Funcionaldiades
+
+- [x] Tela de Macroprocessos, criação simples de Macroprocessos com lista, edição e criação
+- [x] Tela de Processos, criação simples de Processos com lista, edição e criação
+- [x] Tela de Atividades, criação simples de Atividades com lista, edição e criação
+- [x] Tela de Eventos, criação simples de Eventos com lista, edição e criação
+- [ ] Tela de Analise onde o usuário do site poderá realisar a analide de algum evento
+
 
 ## 💻 Tecnologias
 
 - [React.js](https://pt-br.reactjs.org/): que permite a criação de páginas e componentes que podem ser reutilizados, além de diversas outras funcionalidades
+- [Vite.js](https://vitejs.dev/): que permite a criação do projeto em react
 
-## 🚀 Instalando o Blog Meta Team
 
-Para instalar o Blog Meta Team, siga estas etapas:
+## 🚀 Instalando o Front-AIC
+
+Para instalar o Front-AI, siga estas etapas:
 
 ```bash
 # No seu terminal, clone o projeto
-$ git clone https://github.com/RafaelHuszcza/Trabalho-Si.git
+$ git clone https://github.com/RafaelHuszcza/Front-AIC.git
 
 # Entre na pasta...
-$ cd Trabalho-Si
+$ cd Front-AIC
 
 # Instale as dependências
 $ yarn install
 ```
 
-## ☕ Usando o Blog Meta Team
+## ☕ Usando o Front-AIC
 
-Para usar o Blog Meta Team, siga estas etapas:
+Para usar o Front-AIC, siga estas etapas:
 
 ```bash
-# No seu terminal, dentro de 'Trabalho-Si/', inicie o projeto executando
+# No seu terminal, dentro de 'Front-AIC/', inicie o projeto executando
 $ yarn start
 ```
 
-## 📫 Contribuindo para Blog Meta Team
-
-> Sua contribuição é muito bem vinda! 😀
-
-Para contribuir com o Blog Meta Team, siga estas etapas:
-
-1. Bifurque este repositório.
-2. Crie um branch: `git checkout -b <nome_branch>`.
-3. Faça suas alterações e confirme-as: `git commit -m '<mensagem_commit>'`
-4. Envie para o branch original: `git push origin Trabalho-Si / <local>`
-5. Crie a solicitação de pull.
 
 Como alternativa, consulte a documentação do GitHub em [como criar uma solicitação pull](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
